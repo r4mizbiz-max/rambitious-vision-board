@@ -1,7 +1,7 @@
 {
-  "tool_name": "mcp__connect-apps__COMPOSIO_MULTI_EXECUTE_TOOL",
-  "tool_input_preview": "{\"session_id\":\"flat\",\"current_step\":\"CHECK_CLIENTS_SETTERS\",\"thought\":\"See clients + setters real state to compare to where Ram says he is (9 clients, 6 PPSA + 3 PPL, 3 setters).\",\"sync_response_to_wo...",
-  "error": "{\"data\":{\"results\":[{\"response\":{\"successful\":true,\"data\":{\"result\":[{\"column_name\":\"id\",\"data_type\":\"uuid\"},{\"column_name\":\"name\",\"data_type\":\"text\"},{\"column_name\":\"niche\",\"data_type\":\"text\"},{\"column_name\":\"status\",\"data_type\":\"text\"},{\"column_name\":\"pricing_tier\",\"data_type\":\"text\"},{\"column_name\":\"price_per_appt\",\"data_type\":\"numeric\"},{\"column_name\":\"meta_campaign_id\",\"data_type\":\"text\"},{\"column_name\":\"meta_campaign_name\",\"data_type\":\"text\"},{\"column_name\":\"ghl_location_id\",\"data_type\":\"t...",
-  "timestamp": "2026-05-13T19:27:12.439Z",
+  "tool_name": "mcp__playwright__browser_wait_for",
+  "tool_input_preview": "{\"time\":30}",
+  "error": "### Error\nError: No open pages available.",
+  "timestamp": "2026-05-13T23:25:10.468Z",
   "retry_count": 1
 }
