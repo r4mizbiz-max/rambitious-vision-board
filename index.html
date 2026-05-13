@@ -766,34 +766,105 @@
       { id: 'jul-set2', x: 1090, y: 8170, w: 180, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>Lyann</small></p>` },
       { id: 'jul-set3', x: 1280, y: 8170, w: 90, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>Vinyah</small></p>` },
 
-      // === COLUMN 3: 2027 POD MODEL (Cam-style) ===
-      { id: 'team-2027-title', x: 0, y: 8290, w: 600, h: 80, html: `
-        <h3>🚀 2027+ POD MODEL</h3>
-        <p style="margin:0;font-size:14px;">Cam's $60M/yr structure · 3 pods × 30-50 clients each · niche-specific</p>
+      // === FULL SCALE: 3 PODS × 30 CLIENTS (cluster structure) ===
+      { id: 'team-2027-title', x: 0, y: 8290, w: 900, h: 80, html: `
+        <h3>🚀 FULL SCALE — 3 Pods × 30 Clients = 90 Clients Ceiling</h3>
+        <p style="margin:0;font-size:14px;">Pod = 30 clients = 2 clusters of 15. CSM + MB at cap (30). Setters never above 15. Niche-specific pods.</p>
       `},
-      { id: 'pod-ceo', x: 800, y: 8400, w: 200, h: 60, boxType: 'org', role: 'founder', html: `<p>CEO<small>Ramiz · vision + capital</small></p>` },
-      { id: 'pod-coo', x: 800, y: 8540, w: 200, h: 60, boxType: 'org', role: 'ops', html: `<p>COO<small>runs all pods</small></p>` },
-      // Pod 1 — Walk-in Showers
-      { id: 'pod1-lead', x: 200, y: 8700, w: 200, h: 60, boxType: 'org', role: 'lead', html: `<p>POD 1 LEAD<small>Walk-in showers · 30-50 clients</small></p>` },
-      { id: 'pod1-csm', x: 100, y: 8830, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>CSM</p>` },
-      { id: 'pod1-mb', x: 260, y: 8830, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>MEDIA BUYER</p>` },
-      { id: 'pod1-tech', x: 100, y: 8920, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>TECH</p>` },
-      { id: 'pod1-setters', x: 260, y: 8920, w: 140, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTERS x2</p>` },
-      // Pod 2 — Decks/Outdoor
-      { id: 'pod2-lead', x: 700, y: 8700, w: 200, h: 60, boxType: 'org', role: 'lead', html: `<p>POD 2 LEAD<small>Decks/outdoor · 30-50 clients</small></p>` },
-      { id: 'pod2-csm', x: 600, y: 8830, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>CSM</p>` },
-      { id: 'pod2-mb', x: 760, y: 8830, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>MEDIA BUYER</p>` },
-      { id: 'pod2-tech', x: 600, y: 8920, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>TECH</p>` },
-      { id: 'pod2-setters', x: 760, y: 8920, w: 140, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTERS x2</p>` },
-      // Pod 3 — HVAC/Other
-      { id: 'pod3-lead', x: 1200, y: 8700, w: 200, h: 60, boxType: 'org', role: 'lead', html: `<p>POD 3 LEAD<small>HVAC/painting · 30-50 clients</small></p>` },
-      { id: 'pod3-csm', x: 1100, y: 8830, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>CSM</p>` },
-      { id: 'pod3-mb', x: 1260, y: 8830, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>MEDIA BUYER</p>` },
-      { id: 'pod3-tech', x: 1100, y: 8920, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>TECH</p>` },
-      { id: 'pod3-setters', x: 1260, y: 8920, w: 140, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTERS x2</p>` },
+      { id: 'pod-ceo', x: 900, y: 8400, w: 200, h: 60, boxType: 'org', role: 'founder', html: `<p>CEO<small>Ramiz · vision + capital</small></p>` },
+      { id: 'pod-coo', x: 900, y: 8520, w: 200, h: 60, boxType: 'org', role: 'ops', html: `<p>COO<small>runs all pods</small></p>` },
+      // ----- Pod 1: 30 clients = 2 clusters of 15 -----
+      { id: 'pod1-lead', x: 100, y: 8680, w: 220, h: 60, boxType: 'org', role: 'lead', html: `<p>POD 1 LEAD<small>30 clients · niche A</small></p>` },
+      { id: 'pod1-csm', x: 50, y: 8800, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>CSM<small>30 clients</small></p>` },
+      { id: 'pod1-mb', x: 200, y: 8800, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>MEDIA BUYER<small>30 clients</small></p>` },
+      { id: 'pod1-tech', x: 350, y: 8800, w: 130, h: 60, boxType: 'org', role: 'high', html: `<p>TECH</p>` },
+      { id: 'pod1-c1', x: 50, y: 8920, w: 200, h: 60, boxType: 'org', role: 'lead', html: `<p>CLUSTER 1<small>15 clients</small></p>` },
+      { id: 'pod1-c1-am', x: 50, y: 9020, w: 95, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>morning</small></p>` },
+      { id: 'pod1-c1-pm', x: 155, y: 9020, w: 95, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>night</small></p>` },
+      { id: 'pod1-c2', x: 270, y: 8920, w: 200, h: 60, boxType: 'org', role: 'lead', html: `<p>CLUSTER 2<small>15 clients</small></p>` },
+      { id: 'pod1-c2-am', x: 270, y: 9020, w: 95, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>morning</small></p>` },
+      { id: 'pod1-c2-pm', x: 375, y: 9020, w: 95, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>night</small></p>` },
+      // ----- Pod 2 -----
+      { id: 'pod2-lead', x: 720, y: 8680, w: 220, h: 60, boxType: 'org', role: 'lead', html: `<p>POD 2 LEAD<small>30 clients · niche B</small></p>` },
+      { id: 'pod2-csm', x: 670, y: 8800, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>CSM<small>30 clients</small></p>` },
+      { id: 'pod2-mb', x: 820, y: 8800, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>MEDIA BUYER<small>30 clients</small></p>` },
+      { id: 'pod2-tech', x: 970, y: 8800, w: 130, h: 60, boxType: 'org', role: 'high', html: `<p>TECH</p>` },
+      { id: 'pod2-c1', x: 670, y: 8920, w: 200, h: 60, boxType: 'org', role: 'lead', html: `<p>CLUSTER 1<small>15 clients</small></p>` },
+      { id: 'pod2-c1-am', x: 670, y: 9020, w: 95, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>morning</small></p>` },
+      { id: 'pod2-c1-pm', x: 775, y: 9020, w: 95, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>night</small></p>` },
+      { id: 'pod2-c2', x: 890, y: 8920, w: 200, h: 60, boxType: 'org', role: 'lead', html: `<p>CLUSTER 2<small>15 clients</small></p>` },
+      { id: 'pod2-c2-am', x: 890, y: 9020, w: 95, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>morning</small></p>` },
+      { id: 'pod2-c2-pm', x: 995, y: 9020, w: 95, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>night</small></p>` },
+      // ----- Pod 3 -----
+      { id: 'pod3-lead', x: 1340, y: 8680, w: 220, h: 60, boxType: 'org', role: 'lead', html: `<p>POD 3 LEAD<small>30 clients · niche C</small></p>` },
+      { id: 'pod3-csm', x: 1290, y: 8800, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>CSM<small>30 clients</small></p>` },
+      { id: 'pod3-mb', x: 1440, y: 8800, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>MEDIA BUYER<small>30 clients</small></p>` },
+      { id: 'pod3-tech', x: 1590, y: 8800, w: 130, h: 60, boxType: 'org', role: 'high', html: `<p>TECH</p>` },
+      { id: 'pod3-c1', x: 1290, y: 8920, w: 200, h: 60, boxType: 'org', role: 'lead', html: `<p>CLUSTER 1<small>15 clients</small></p>` },
+      { id: 'pod3-c1-am', x: 1290, y: 9020, w: 95, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>morning</small></p>` },
+      { id: 'pod3-c1-pm', x: 1395, y: 9020, w: 95, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>night</small></p>` },
+      { id: 'pod3-c2', x: 1510, y: 8920, w: 200, h: 60, boxType: 'org', role: 'lead', html: `<p>CLUSTER 2<small>15 clients</small></p>` },
+      { id: 'pod3-c2-am', x: 1510, y: 9020, w: 95, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>morning</small></p>` },
+      { id: 'pod3-c2-pm', x: 1615, y: 9020, w: 95, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>night</small></p>` },
       // Shared services
-      { id: 'pod-sales', x: 1600, y: 8540, w: 200, h: 60, boxType: 'org', role: 'high', html: `<p>SALES TEAM<small>centralized · feeds pods</small></p>` },
-      { id: 'pod-ops', x: 1600, y: 8700, w: 200, h: 60, boxType: 'org', role: 'ops', html: `<p>SHARED OPS<small>Finance · Hiring · IT</small></p>` },
+      { id: 'pod-sales', x: 1800, y: 8400, w: 200, h: 60, boxType: 'org', role: 'high', html: `<p>SALES TEAM<small>centralized · closer feeds pods</small></p>` },
+      { id: 'pod-ops', x: 1800, y: 8520, w: 200, h: 60, boxType: 'org', role: 'ops', html: `<p>SHARED OPS<small>Finance · Hiring · IT</small></p>` },
+
+      // ===== SCALING PATH (5 milestones) =====
+      { id: 'scaling-title', x: 0, y: 9140, w: 1900, h: 80, html: `
+        <h3>📈 SCALING PATH — Where you are → where you go</h3>
+        <p style="margin:0;font-size:14px;">Each milestone = capacity unlocked. Hire BEFORE you hit the next cap, not after.</p>
+      `},
+      { id: 'milestone-9', x: 0, y: 9240, w: 360, h: 200, color: 6, html: `
+        <h3>9 clients · TODAY</h3>
+        <p class="mono">~$25-35k MRR</p>
+        <ul>
+          <li>3 setters, no CSM yet</li>
+          <li>Inside Cluster 1 of Pod 1</li>
+          <li>You = de facto Pod Lead + CSM + MB</li>
+        </ul>
+        <p><strong>Next: hire CSM @ Wk 7-8</strong></p>
+      `},
+      { id: 'milestone-15', x: 380, y: 9240, w: 360, h: 200, html: `
+        <h3>15 clients · CLUSTER 1 FULL</h3>
+        <p class="mono">~$45-55k MRR</p>
+        <ul>
+          <li>CSM hired, owns the 15</li>
+          <li>Setters: 1 morning + 1 night</li>
+          <li>You start building Cluster 2</li>
+        </ul>
+        <p><strong>Next: 2nd cluster's setters</strong></p>
+      `},
+      { id: 'milestone-30', x: 760, y: 9240, w: 360, h: 200, color: 5, html: `
+        <h3>30 clients · POD 1 FULL</h3>
+        <p class="mono">~$80-100k MRR</p>
+        <ul>
+          <li>CSM AT CAP (30)</li>
+          <li>MB AT CAP (30)</li>
+          <li>4 setters (2 clusters × 2 shifts)</li>
+        </ul>
+        <p><strong>Next: 2nd CSM + MB as Pod 2 starts</strong></p>
+      `},
+      { id: 'milestone-60', x: 1140, y: 9240, w: 360, h: 200, html: `
+        <h3>60 clients · 2 PODS FULL</h3>
+        <p class="mono">~$160-200k MRR</p>
+        <ul>
+          <li>2 Pod Leads, 2 CSMs, 2 MBs</li>
+          <li>8 setters across 4 clusters</li>
+          <li>COO/Ops Mgr needed</li>
+        </ul>
+        <p><strong>Next: Pod 3 build, hire COO</strong></p>
+      `},
+      { id: 'milestone-90', x: 1520, y: 9240, w: 360, h: 200, color: 4, html: `
+        <h3>90 clients · 3 PODS = MAX</h3>
+        <p class="mono">~$240-300k MRR</p>
+        <ul>
+          <li>Full 3-pod structure</li>
+          <li>~22 humans + Ramiz/COO</li>
+          <li>Layer 1 ceiling per Cam</li>
+        </ul>
+        <p><strong>Next: cashcow OR Layer 2 (Rhom)</strong></p>
+      `},
 
       { id: 'how-to-use', x: 2200, y: 420, w: 500, h: 500, html: `
         <h2>🗺️ HOW TO USE THIS</h2>
@@ -845,25 +916,49 @@
       { from: 'jul-founder', to: 'jul-set1', org: true },
       { from: 'jul-founder', to: 'jul-set2', org: true },
       { from: 'jul-founder', to: 'jul-set3', org: true },
-      // 2027 Pod
+      // 2027 Pod structure
       { from: 'pod-ceo', to: 'pod-coo', org: true },
       { from: 'pod-coo', to: 'pod1-lead', org: true },
       { from: 'pod-coo', to: 'pod2-lead', org: true },
       { from: 'pod-coo', to: 'pod3-lead', org: true },
+      // Pod 1
       { from: 'pod1-lead', to: 'pod1-csm', org: true },
       { from: 'pod1-lead', to: 'pod1-mb', org: true },
       { from: 'pod1-lead', to: 'pod1-tech', org: true },
-      { from: 'pod1-lead', to: 'pod1-setters', org: true },
+      { from: 'pod1-lead', to: 'pod1-c1', org: true },
+      { from: 'pod1-lead', to: 'pod1-c2', org: true },
+      { from: 'pod1-c1', to: 'pod1-c1-am', org: true },
+      { from: 'pod1-c1', to: 'pod1-c1-pm', org: true },
+      { from: 'pod1-c2', to: 'pod1-c2-am', org: true },
+      { from: 'pod1-c2', to: 'pod1-c2-pm', org: true },
+      // Pod 2
       { from: 'pod2-lead', to: 'pod2-csm', org: true },
       { from: 'pod2-lead', to: 'pod2-mb', org: true },
       { from: 'pod2-lead', to: 'pod2-tech', org: true },
-      { from: 'pod2-lead', to: 'pod2-setters', org: true },
+      { from: 'pod2-lead', to: 'pod2-c1', org: true },
+      { from: 'pod2-lead', to: 'pod2-c2', org: true },
+      { from: 'pod2-c1', to: 'pod2-c1-am', org: true },
+      { from: 'pod2-c1', to: 'pod2-c1-pm', org: true },
+      { from: 'pod2-c2', to: 'pod2-c2-am', org: true },
+      { from: 'pod2-c2', to: 'pod2-c2-pm', org: true },
+      // Pod 3
       { from: 'pod3-lead', to: 'pod3-csm', org: true },
       { from: 'pod3-lead', to: 'pod3-mb', org: true },
       { from: 'pod3-lead', to: 'pod3-tech', org: true },
-      { from: 'pod3-lead', to: 'pod3-setters', org: true },
+      { from: 'pod3-lead', to: 'pod3-c1', org: true },
+      { from: 'pod3-lead', to: 'pod3-c2', org: true },
+      { from: 'pod3-c1', to: 'pod3-c1-am', org: true },
+      { from: 'pod3-c1', to: 'pod3-c1-pm', org: true },
+      { from: 'pod3-c2', to: 'pod3-c2-am', org: true },
+      { from: 'pod3-c2', to: 'pod3-c2-pm', org: true },
+      // Shared services
       { from: 'pod-ceo', to: 'pod-sales', org: true },
       { from: 'pod-coo', to: 'pod-ops', org: true },
+      // Scaling path connection
+      { from: 'milestone-9', to: 'milestone-15' },
+      { from: 'milestone-15', to: 'milestone-30' },
+      { from: 'milestone-30', to: 'milestone-60' },
+      { from: 'milestone-60', to: 'milestone-90' },
     ];
 
     // --- Saved layout (localStorage) ---
