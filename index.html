@@ -874,41 +874,40 @@
 
       // === PAY SCALE (row of role-cost cards) ===
       { id: 'pay-title', x: 0, y: 9640, w: 600, h: 60, html: `<h3>👔 Pay scale (per pod)</h3>` },
-      { id: 'pay-podlead', x: 0, y: 9720, w: 240, h: 200, color: 4, html: `
+      { id: 'pay-podlead', x: 0, y: 9720, w: 240, h: 220, color: 4, html: `
         <h3>POD LEAD</h3>
-        <p class="mono">$4,000/mo · senior offshore or US junior</p>
-        <p>Owns pod P&L. Mini-CEO of 30 clients. Hire from within (CSM promo) or external. Cam pattern #5 — pod = mini-agency.</p>
+        <p class="mono">$7,000/mo · senior offshore + comm OR mid-tier US</p>
+        <p>Owns pod P&L. Mini-CEO of 30 clients. Pay scales with pod performance. Hire from within (CSM promo) or external. Cam pattern #5.</p>
       `},
-      { id: 'pay-csm', x: 260, y: 9720, w: 240, h: 200, color: 3, html: `
+      { id: 'pay-csm', x: 260, y: 9720, w: 240, h: 220, color: 3, html: `
         <h3>CSM</h3>
-        <p class="mono">$2,500/mo · offshore (PH / LATAM)</p>
-        <p>Caps at 30 clients. Weekly Loom + monthly call per client. ~25 hrs/wk. OnlineJobs.ph + LinkedIn pool.</p>
+        <p class="mono">$4,000/mo · solid offshore (PH / LATAM)</p>
+        <p>Caps at 30 clients. Weekly Loom + monthly call per client. ~25 hrs/wk active work. Quality matters — they hold renewals.</p>
       `},
-      { id: 'pay-mb', x: 520, y: 9720, w: 240, h: 200, color: 3, html: `
+      { id: 'pay-mb', x: 520, y: 9720, w: 240, h: 220, color: 3, html: `
         <h3>MEDIA BUYER</h3>
-        <p class="mono">$3,000/mo · skilled hire</p>
-        <p>Caps at 30 clients. Daily Meta reviews, creative refresh, iteration logging. Hardest role to find — pay premium.</p>
+        <p class="mono">$5,000/mo · skilled hire (often hardest role)</p>
+        <p>Caps at 30 clients. Daily Meta reviews, creative refresh, iteration logging. Pay premium — bad MB = client churn.</p>
       `},
-      { id: 'pay-tech', x: 780, y: 9720, w: 240, h: 200, color: 3, html: `
+      { id: 'pay-tech', x: 780, y: 9720, w: 240, h: 220, color: 3, html: `
         <h3>TECH</h3>
-        <p class="mono">$2,000/mo · offshore</p>
-        <p>Funnels, GHL admin, onboarding new clients, ticket support. One per pod. Could share across pods early.</p>
+        <p class="mono">$3,000/mo · offshore</p>
+        <p>Funnels, GHL admin, onboarding new clients, ticket support. One per pod. Could share across 2 pods early.</p>
       `},
-      { id: 'pay-setter', x: 1040, y: 9720, w: 240, h: 200, html: `
+      { id: 'pay-setter', x: 1040, y: 9720, w: 240, h: 220, html: `
         <h3>SETTER (×4 per pod)</h3>
-        <p class="mono">$750/mo base + 5% net-rev commission</p>
-        <p>2 clusters × (1 AM + 1 PM) = 4 per pod. Your existing setter pay model (per Egyptian setter memory). $3k total per pod.</p>
+        <p class="mono">$1,000 base + 5% net-rev = ~$1,500/mo avg</p>
+        <p>2 clusters × (1 AM + 1 PM) = 4 per pod. Performance-based comp keeps them hungry. $6k total per pod.</p>
       `},
-      { id: 'pay-total', x: 1300, y: 9720, w: 380, h: 200, color: 6, html: `
+      { id: 'pay-total', x: 1300, y: 9720, w: 380, h: 220, color: 6, html: `
         <h3>📊 TOTAL POD LABOR</h3>
-        <h2 class="gradient-text" style="font-size: 36px;">$15,000/mo</h2>
+        <h2 class="gradient-text" style="font-size: 36px;">$26,000/mo</h2>
         <ul>
-          <li>Pod Lead $4k</li>
-          <li>CSM $2.5k · MB $3k · Tech $2k</li>
-          <li>4 Setters $3k</li>
-          <li>+ Pod tools/SaaS ~$500/mo</li>
+          <li>Pod Lead $7k · CSM $4k · MB $5k · Tech $3k</li>
+          <li>4 Setters $6k all-in (base + comm)</li>
+          <li>+ Pod tools/SaaS ~$1k</li>
         </ul>
-        <p><strong>Fully loaded: ~$15.5k/mo per pod</strong></p>
+        <p><strong>Fully loaded: ~$26k/mo per pod</strong></p>
       `},
 
       // === PER-POD P&L (3 scenarios) ===
@@ -918,27 +917,27 @@
         <p class="mono">8 appts/mo avg · $150/appt</p>
         <p><strong>Per client:</strong> $497 retainer + $1,200 PPSA = $1,697/mo</p>
         <p><strong>Pod revenue:</strong> 30 × $1,697 = <strong>$50,910/mo</strong></p>
-        <p><strong>Less labor:</strong> $15,500</p>
-        <h2 class="gradient-text">$35,410 profit</h2>
-        <p class="mono">~70% pod margin</p>
+        <p><strong>Less labor:</strong> $26,000</p>
+        <h2 class="gradient-text">$24,910 profit</h2>
+        <p class="mono">~49% pod margin</p>
       `},
       { id: 'pod-pl-mid', x: 380, y: 10040, w: 360, h: 320, color: 6, html: `
         <h3>REALISTIC ★</h3>
         <p class="mono">12 appts/mo avg · $160/appt</p>
         <p><strong>Per client:</strong> $497 + $1,920 = $2,417/mo</p>
         <p><strong>Pod revenue:</strong> 30 × $2,417 = <strong>$72,510/mo</strong></p>
-        <p><strong>Less labor:</strong> $15,500</p>
-        <h2 class="gradient-text" style="font-size: 32px;">$57,010 profit</h2>
-        <p class="mono">~79% pod margin</p>
+        <p><strong>Less labor:</strong> $26,000</p>
+        <h2 class="gradient-text" style="font-size: 32px;">$46,510 profit</h2>
+        <p class="mono">~64% pod margin</p>
       `},
       { id: 'pod-pl-high', x: 760, y: 10040, w: 360, h: 320, color: 4, html: `
         <h3>AGGRESSIVE</h3>
         <p class="mono">15 appts/mo avg · $175/appt</p>
         <p><strong>Per client:</strong> $497 + $2,625 = $3,122/mo</p>
         <p><strong>Pod revenue:</strong> 30 × $3,122 = <strong>$93,660/mo</strong></p>
-        <p><strong>Less labor:</strong> $15,500</p>
-        <h2 class="gradient-text" style="font-size: 32px;">$78,160 profit</h2>
-        <p class="mono">~83% pod margin</p>
+        <p><strong>Less labor:</strong> $26,000</p>
+        <h2 class="gradient-text" style="font-size: 32px;">$67,660 profit</h2>
+        <p class="mono">~72% pod margin</p>
       `},
       { id: 'pod-pl-note', x: 1140, y: 10040, w: 540, h: 320, html: `
         <h3>📝 Assumptions explained</h3>
@@ -957,60 +956,60 @@
         <h3>🏢 Company P&L at scale (realistic / mid case)</h3>
         <p style="margin:0;font-size:13px;">After company overhead (CEO, COO, Sales, Shared Ops, own acquisition marketing).</p>
       `},
-      { id: 'co-1pod', x: 0, y: 10500, w: 440, h: 360, html: `
+      { id: 'co-1pod', x: 0, y: 10500, w: 440, h: 380, html: `
         <h3>1 POD · 30 CLIENTS</h3>
         <p class="mono">$72,510/mo gross</p>
         <ul>
-          <li>Pod labor: $15,500</li>
-          <li>You (Ramiz): take draw, no salary</li>
-          <li>Closer (part-time/comm): $4,000</li>
-          <li>Software/tools: $1,500</li>
+          <li>Pod labor: $26,000</li>
+          <li>You (Ramiz): take draw, no salary yet</li>
+          <li>Closer (part-time + comm): $5,000</li>
+          <li>Software/tools: $2,000</li>
           <li>Own acquisition ads: $5,000</li>
         </ul>
-        <p><strong>Total costs: $26,000</strong></p>
-        <h2 class="gradient-text">$46,510 net</h2>
-        <p class="mono">~64% net margin</p>
+        <p><strong>Total costs: $38,000</strong></p>
+        <h2 class="gradient-text">$34,510 net</h2>
+        <p class="mono">~48% net margin</p>
       `},
-      { id: 'co-2pod', x: 460, y: 10500, w: 440, h: 360, color: 6, html: `
+      { id: 'co-2pod', x: 460, y: 10500, w: 440, h: 380, color: 6, html: `
         <h3>2 PODS · 60 CLIENTS ★</h3>
         <p class="mono">$145,020/mo gross</p>
         <ul>
-          <li>Pod labor: $31,000 (2×)</li>
-          <li>COO hired: $7,000</li>
-          <li>Closer + 1 setter for sales: $6,500</li>
-          <li>Software/tools: $2,500</li>
-          <li>Own acquisition ads: $8,000</li>
-          <li>You: ~$12k/mo founder salary</li>
+          <li>Pod labor: $52,000 (2×)</li>
+          <li>COO hired: $10,000</li>
+          <li>Closer + 1 acq setter: $8,000</li>
+          <li>Software/tools: $3,000</li>
+          <li>Own acquisition ads: $10,000</li>
+          <li>You: ~$15k/mo founder salary</li>
         </ul>
-        <p><strong>Total costs: $67,000</strong></p>
-        <h2 class="gradient-text" style="font-size: 36px;">$78,020 net</h2>
-        <p class="mono">~54% net margin · sweet spot</p>
+        <p><strong>Total costs: $98,000</strong></p>
+        <h2 class="gradient-text" style="font-size: 36px;">$47,020 net</h2>
+        <p class="mono">~32% net + your $15k salary</p>
       `},
-      { id: 'co-3pod', x: 920, y: 10500, w: 440, h: 360, color: 4, html: `
+      { id: 'co-3pod', x: 920, y: 10500, w: 440, h: 380, color: 4, html: `
         <h3>3 PODS · 90 CLIENTS</h3>
         <p class="mono">$217,530/mo gross</p>
         <ul>
-          <li>Pod labor: $46,500 (3×)</li>
-          <li>COO: $8,500</li>
-          <li>Sales team (Closer + 2 acq setters): $10,000</li>
-          <li>Software/tools: $3,500</li>
-          <li>Own acquisition ads: $12,000</li>
-          <li>You: ~$15k/mo founder salary</li>
+          <li>Pod labor: $78,000 (3×)</li>
+          <li>COO: $12,000</li>
+          <li>Sales team (Closer + 2 acq setters): $13,000</li>
+          <li>Software/tools: $4,500</li>
+          <li>Own acquisition ads: $14,000</li>
+          <li>You: ~$18k/mo founder salary</li>
         </ul>
-        <p><strong>Total costs: $95,500</strong></p>
-        <h2 class="gradient-text" style="font-size: 36px;">$122,030 net</h2>
-        <p class="mono">~56% net margin · Layer 1 max</p>
+        <p><strong>Total costs: $139,500</strong></p>
+        <h2 class="gradient-text" style="font-size: 36px;">$78,030 net</h2>
+        <p class="mono">~36% net + your $18k salary</p>
       `},
-      { id: 'co-takehome', x: 1380, y: 10500, w: 500, h: 360, color: 6, html: `
-        <h3>🏆 YOUR TAKE-HOME (after expenses)</h3>
-        <p>You own 100%. Net profit = your money (minus tax + reinvestment).</p>
+      { id: 'co-takehome', x: 1380, y: 10500, w: 500, h: 380, color: 6, html: `
+        <h3>🏆 YOUR TAKE-HOME (after all expenses)</h3>
+        <p>You own 100%. Net profit + salary = your $ (minus tax + reinvestment).</p>
         <table style="width:100%; border-collapse: collapse; margin: 12px 0; font-size: 14px;">
-          <tr style="border-bottom: 1px solid #e7e5e4;"><td style="padding: 8px 0;"><strong>Pod 1 full (30)</strong></td><td style="text-align: right;">$46k/mo</td></tr>
-          <tr style="border-bottom: 1px solid #e7e5e4;"><td style="padding: 8px 0;"><strong>Pod 2 full (60)</strong></td><td style="text-align: right;">$78k/mo + $12k salary = <strong>$90k/mo</strong></td></tr>
-          <tr><td style="padding: 8px 0;"><strong>Pod 3 full (90)</strong></td><td style="text-align: right;">$122k/mo + $15k salary = <strong>$137k/mo</strong></td></tr>
+          <tr style="border-bottom: 1px solid #e7e5e4;"><td style="padding: 8px 0;"><strong>Pod 1 full (30)</strong></td><td style="text-align: right;"><strong>$34k/mo</strong></td></tr>
+          <tr style="border-bottom: 1px solid #e7e5e4;"><td style="padding: 8px 0;"><strong>Pod 2 full (60)</strong></td><td style="text-align: right;">$47k net + $15k salary = <strong>$62k/mo</strong></td></tr>
+          <tr><td style="padding: 8px 0;"><strong>Pod 3 full (90)</strong></td><td style="text-align: right;">$78k net + $18k salary = <strong>$96k/mo</strong></td></tr>
         </table>
-        <p><strong>Annual at 3 pods:</strong> ~$1.6M to you</p>
-        <p><strong>This is Cam's "$100k/mo profit cashcow"</strong> — and then you stack Layer 2 (Rhom).</p>
+        <p><strong>Annual at 3 pods:</strong> ~$1.15M to you</p>
+        <p style="margin-top: 8px;"><strong>This matches Cam's quote:</strong> "100 grand a month in profit, then cash cow it." You're right at that number at 3 pods.</p>
       `},
 
       { id: 'how-to-use', x: 2200, y: 420, w: 500, h: 500, html: `
