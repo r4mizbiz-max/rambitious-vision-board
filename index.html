@@ -99,6 +99,24 @@
     .key { font-family: 'JetBrains Mono', monospace; font-size: 11px; background: var(--bg-1); border: 1px solid var(--line); padding: 4px 9px; border-radius: 5px; color: var(--text); font-weight: 600; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @media (max-width: 768px) { .topbar-meta { display: none; } .minimap { display: none; } }
+
+    /* Settings panel */
+    .settings-panel { position: fixed; top: 0; right: -440px; width: 440px; height: 100vh; background: var(--card-bg); border-left: 1px solid var(--line); box-shadow: -8px 0 30px rgba(0,0,0,0.08); z-index: 150; transition: right 0.3s ease; overflow-y: auto; }
+    .settings-panel.open { right: 0; }
+    .settings-header { padding: 20px 24px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--card-bg); z-index: 10; display: flex; justify-content: space-between; align-items: center; }
+    .settings-header h2 { font-family: 'Syne', sans-serif; font-size: 20px; }
+    .close-btn { background: transparent; border: none; font-size: 20px; cursor: pointer; padding: 4px 10px; border-radius: 6px; color: var(--text-dim); }
+    .close-btn:hover { background: var(--bg-1); }
+    .settings-section { padding: 20px 24px; border-bottom: 1px solid var(--line-soft); }
+    .settings-section h3 { font-family: 'Syne', sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 14px; }
+    .input-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 12px; }
+    .input-row label { font-size: 13px; color: var(--text); flex: 1; }
+    .input-row label small { display: block; font-size: 11px; color: var(--text-faint); margin-top: 2px; }
+    .input-row input[type="number"] { width: 110px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 13px; text-align: right; background: white; color: var(--text); }
+    .input-row input[type="number"]:focus { border-color: var(--p-1); outline: none; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1); }
+    .live-result { background: var(--bg-1); padding: 12px 14px; border-radius: 8px; margin-top: 10px; font-size: 12px; }
+    .live-result strong { color: var(--p-1); font-family: 'JetBrains Mono', monospace; }
+    .settings-toggle { position: fixed; top: 16px; right: 20px; z-index: 101; }
   </style>
 </head>
 <body>
@@ -128,7 +146,8 @@
       <button class="btn" onclick="jumpTo('w1')">📅 This Week</button>
       <button class="btn" onclick="jumpTo('roles-title')">👥 Roles</button>
       <button class="btn" onclick="jumpTo('team-title')">🏗️ Team Chart</button>
-      <button class="btn" onclick="resetLayout()" title="Reset card positions">↺ Reset Layout</button>
+      <button class="btn" onclick="toggleSettings()" title="Adjust numbers">⚙️ Numbers</button>
+      <button class="btn" onclick="resetLayout()" title="Reset card positions">↺ Layout</button>
       <button class="btn btn-primary" onclick="jumpTo('hero')">⭐ North Star</button>
     </div>
   </div>
@@ -156,7 +175,109 @@
     <button class="zoom-btn" onclick="fitToScreen()" title="Fit">⌂</button>
   </div>
 
-  <div class="minimap" id="minimap">
+  <!-- Settings panel: live-edit all financial numbers -->
+  <aside class="settings-panel" id="settings-panel">
+    <div class="settings-header">
+      <h2>⚙️ Numbers</h2>
+      <button class="close-btn" onclick="toggleSettings()">✕</button>
+    </div>
+
+    <div class="settings-section">
+      <h3>💰 Revenue (per client)</h3>
+      <div class="input-row">
+        <label>Appts/month <small>your input: 1/day = 30</small></label>
+        <input type="number" id="cfg-appts" min="1" max="60">
+      </div>
+      <div class="input-row">
+        <label>Price per appt <small>$ USD</small></label>
+        <input type="number" id="cfg-priceAppt" min="50" max="500" step="5">
+      </div>
+      <div class="input-row">
+        <label>Monthly retainer <small>$ USD</small></label>
+        <input type="number" id="cfg-retainer" min="0" max="2000" step="10">
+      </div>
+      <div class="live-result" id="result-revenue"></div>
+    </div>
+
+    <div class="settings-section">
+      <h3>👥 Pay per pod (mo)</h3>
+      <div class="input-row">
+        <label>Pod Lead</label>
+        <input type="number" id="cfg-podLead" min="0" step="500">
+      </div>
+      <div class="input-row">
+        <label>CSM</label>
+        <input type="number" id="cfg-csm" min="0" step="500">
+      </div>
+      <div class="input-row">
+        <label>Media Buyer</label>
+        <input type="number" id="cfg-mb" min="0" step="500">
+      </div>
+      <div class="input-row">
+        <label>Tech</label>
+        <input type="number" id="cfg-tech" min="0" step="500">
+      </div>
+      <div class="input-row">
+        <label>Setter rate <small>$/hour</small></label>
+        <input type="number" id="cfg-setterHr" min="0" step="0.5">
+      </div>
+      <div class="input-row">
+        <label>Setter hrs/day</label>
+        <input type="number" id="cfg-setterHrsDay" min="0" max="12" step="1">
+      </div>
+      <div class="input-row">
+        <label>Setter days/mo</label>
+        <input type="number" id="cfg-setterDaysMo" min="0" max="31" step="1">
+      </div>
+      <div class="input-row">
+        <label>Tools/SaaS per pod</label>
+        <input type="number" id="cfg-podTools" min="0" step="100">
+      </div>
+      <div class="live-result" id="result-pod-labor"></div>
+    </div>
+
+    <div class="settings-section">
+      <h3>📊 Per-pod result</h3>
+      <div class="live-result" id="result-pod-pl"></div>
+    </div>
+
+    <div class="settings-section">
+      <h3>🏢 Company overhead (mo)</h3>
+      <div class="input-row">
+        <label>COO <small>at 2+ pods</small></label>
+        <input type="number" id="cfg-coo" min="0" step="500">
+      </div>
+      <div class="input-row">
+        <label>Closer / sales team</label>
+        <input type="number" id="cfg-closer" min="0" step="500">
+      </div>
+      <div class="input-row">
+        <label>Software / tools</label>
+        <input type="number" id="cfg-software" min="0" step="500">
+      </div>
+      <div class="input-row">
+        <label>Own acq. ad spend</label>
+        <input type="number" id="cfg-ownAds" min="0" step="500">
+      </div>
+      <div class="input-row">
+        <label>Your salary (founder)</label>
+        <input type="number" id="cfg-founder" min="0" step="1000">
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3>🏆 Company P&L (at scale)</h3>
+      <div class="live-result" id="result-co1"></div>
+      <div class="live-result" id="result-co2" style="margin-top: 8px;"></div>
+      <div class="live-result" id="result-co3" style="margin-top: 8px;"></div>
+    </div>
+
+    <div class="settings-section">
+      <button class="btn" onclick="resetNumbers()" style="width: 100%;">↺ Reset to defaults</button>
+    </div>
+  </aside>
+
+  <div class="minimap" id="minimap"></div>
     <div class="minimap-canvas" id="minimap-canvas">
       <div class="minimap-viewport" id="minimap-viewport"></div>
     </div>
@@ -1107,6 +1228,158 @@
       { from: 'milestone-60', to: 'milestone-90' },
     ];
 
+    // ===== CONFIG — live-editable financial numbers =====
+    const DEFAULTS = {
+      appts: 30, priceAppt: 160, retainer: 497,
+      podLead: 7000, csm: 5000, mb: 5000, tech: 3000,
+      setterHr: 6, setterHrsDay: 8, setterDaysMo: 26,
+      podTools: 1000,
+      coo: 12000, closer: 5000, software: 2500, ownAds: 8000, founder: 25000,
+    };
+    const CFG_KEY = 'rambitious-vision-board-cfg-v1';
+    let CONFIG = { ...DEFAULTS };
+    try { const saved = localStorage.getItem(CFG_KEY); if (saved) CONFIG = { ...DEFAULTS, ...JSON.parse(saved) }; } catch {}
+    function saveConfig() { try { localStorage.setItem(CFG_KEY, JSON.stringify(CONFIG)); } catch {} }
+    function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+    function fmtK(n) { return '$' + (n/1000).toFixed(1) + 'k'; }
+
+    function calc() {
+      const c = CONFIG;
+      const revPerClient = c.retainer + c.appts * c.priceAppt;
+      const revPerPod = revPerClient * 30;
+      const setterPay = c.setterHr * c.setterHrsDay * c.setterDaysMo;
+      const settersPodTotal = setterPay * 4;
+      const podLabor = c.podLead + c.csm + c.mb + c.tech + settersPodTotal + c.podTools;
+      const podProfit = revPerPod - podLabor;
+      // Company P&L at 1, 2, 3 pods
+      const co1 = { gross: revPerPod, labor: podLabor, closer: c.closer, software: c.software, ads: c.ownAds * 0.65, founder: 0 };
+      co1.total = co1.labor + co1.closer + co1.software + co1.ads + co1.founder;
+      co1.net = co1.gross - co1.total;
+      const co2 = { gross: revPerPod * 2, labor: podLabor * 2, coo: c.coo, closer: c.closer * 1.4, software: c.software * 1.3, ads: c.ownAds, founder: c.founder * 0.8 };
+      co2.total = co2.labor + co2.coo + co2.closer + co2.software + co2.ads + co2.founder;
+      co2.net = co2.gross - co2.total;
+      const co3 = { gross: revPerPod * 3, labor: podLabor * 3, coo: c.coo, closer: c.closer * 2, software: c.software * 1.6, ads: c.ownAds * 1.4, founder: c.founder };
+      co3.total = co3.labor + co3.coo + co3.closer + co3.software + co3.ads + co3.founder;
+      co3.net = co3.gross - co3.total;
+      return { revPerClient, revPerPod, setterPay, settersPodTotal, podLabor, podProfit, co1, co2, co3 };
+    }
+
+    function renderInputs() {
+      document.getElementById('cfg-appts').value = CONFIG.appts;
+      document.getElementById('cfg-priceAppt').value = CONFIG.priceAppt;
+      document.getElementById('cfg-retainer').value = CONFIG.retainer;
+      document.getElementById('cfg-podLead').value = CONFIG.podLead;
+      document.getElementById('cfg-csm').value = CONFIG.csm;
+      document.getElementById('cfg-mb').value = CONFIG.mb;
+      document.getElementById('cfg-tech').value = CONFIG.tech;
+      document.getElementById('cfg-setterHr').value = CONFIG.setterHr;
+      document.getElementById('cfg-setterHrsDay').value = CONFIG.setterHrsDay;
+      document.getElementById('cfg-setterDaysMo').value = CONFIG.setterDaysMo;
+      document.getElementById('cfg-podTools').value = CONFIG.podTools;
+      document.getElementById('cfg-coo').value = CONFIG.coo;
+      document.getElementById('cfg-closer').value = CONFIG.closer;
+      document.getElementById('cfg-software').value = CONFIG.software;
+      document.getElementById('cfg-ownAds').value = CONFIG.ownAds;
+      document.getElementById('cfg-founder').value = CONFIG.founder;
+    }
+    function readInputs() {
+      CONFIG.appts = parseFloat(document.getElementById('cfg-appts').value) || 0;
+      CONFIG.priceAppt = parseFloat(document.getElementById('cfg-priceAppt').value) || 0;
+      CONFIG.retainer = parseFloat(document.getElementById('cfg-retainer').value) || 0;
+      CONFIG.podLead = parseFloat(document.getElementById('cfg-podLead').value) || 0;
+      CONFIG.csm = parseFloat(document.getElementById('cfg-csm').value) || 0;
+      CONFIG.mb = parseFloat(document.getElementById('cfg-mb').value) || 0;
+      CONFIG.tech = parseFloat(document.getElementById('cfg-tech').value) || 0;
+      CONFIG.setterHr = parseFloat(document.getElementById('cfg-setterHr').value) || 0;
+      CONFIG.setterHrsDay = parseFloat(document.getElementById('cfg-setterHrsDay').value) || 0;
+      CONFIG.setterDaysMo = parseFloat(document.getElementById('cfg-setterDaysMo').value) || 0;
+      CONFIG.podTools = parseFloat(document.getElementById('cfg-podTools').value) || 0;
+      CONFIG.coo = parseFloat(document.getElementById('cfg-coo').value) || 0;
+      CONFIG.closer = parseFloat(document.getElementById('cfg-closer').value) || 0;
+      CONFIG.software = parseFloat(document.getElementById('cfg-software').value) || 0;
+      CONFIG.ownAds = parseFloat(document.getElementById('cfg-ownAds').value) || 0;
+      CONFIG.founder = parseFloat(document.getElementById('cfg-founder').value) || 0;
+    }
+
+    function renderResults() {
+      const r = calc();
+      const c = CONFIG;
+      // Live result panels inside settings
+      document.getElementById('result-revenue').innerHTML = `Per client: <strong>${fmt(r.revPerClient)}</strong>/mo &middot; Per pod (30c): <strong>${fmt(r.revPerPod)}</strong>/mo`;
+      document.getElementById('result-pod-labor').innerHTML = `Setter pay each: <strong>${fmt(r.setterPay)}</strong>/mo &middot; 4 setters: <strong>${fmt(r.settersPodTotal)}</strong> &middot; <br>Pod total labor: <strong>${fmt(r.podLabor)}</strong>/mo`;
+      document.getElementById('result-pod-pl').innerHTML = `Revenue: <strong>${fmt(r.revPerPod)}</strong> &minus; Labor: <strong>${fmt(r.podLabor)}</strong> = <br>Profit: <strong style="color: var(--green);">${fmt(r.podProfit)}/mo</strong> (${Math.round(r.podProfit/r.revPerPod*100)}%)`;
+      document.getElementById('result-co1').innerHTML = `<strong>1 Pod (30c):</strong> Gross ${fmt(r.co1.gross)} &minus; Costs ${fmt(r.co1.total)} = <strong style="color: var(--green);">${fmt(r.co1.net)} net</strong>`;
+      document.getElementById('result-co2').innerHTML = `<strong>2 Pods (60c):</strong> Gross ${fmt(r.co2.gross)} &minus; Costs ${fmt(r.co2.total)} = <strong style="color: var(--green);">${fmt(r.co2.net)} net</strong>`;
+      document.getElementById('result-co3').innerHTML = `<strong>3 Pods (90c):</strong> Gross ${fmt(r.co3.gross)} &minus; Costs ${fmt(r.co3.total)} = <strong style="color: var(--green);">${fmt(r.co3.net)} net</strong>`;
+
+      // Update card content live
+      const updateCard = (id, html) => {
+        const el = document.querySelector(`[data-id="${id}"] .card-content`);
+        if (el) el.innerHTML = html;
+      };
+      // Pay scale cards
+      updateCard('pay-podlead', `<h3>POD LEAD</h3><p class="mono">${fmt(c.podLead)}/mo · senior offshore + comm OR mid-tier US</p><p>Owns pod P&L. Mini-CEO of 30 clients. Click "⚙️ Numbers" to change.</p>`);
+      updateCard('pay-csm', `<h3>CSM</h3><p class="mono">${fmt(c.csm)}/mo base</p><p>Caps at 30 clients. Weekly Loom + monthly call. ~25 hrs/wk active.</p>`);
+      updateCard('pay-mb', `<h3>MEDIA BUYER</h3><p class="mono">${fmt(c.mb)}/mo base</p><p>Caps at 30 clients. Daily Meta reviews, creative refresh, iteration logging.</p>`);
+      updateCard('pay-tech', `<h3>TECH</h3><p class="mono">${fmt(c.tech)}/mo · offshore</p><p>Funnels, GHL admin, onboarding new clients, ticket support.</p>`);
+      updateCard('pay-setter', `<h3>SETTER (×4 per pod)</h3><p class="mono">$${c.setterHr}/hr · ${c.setterHrsDay} hr/day · ${c.setterDaysMo} days = <strong>${fmt(r.setterPay)}/mo</strong> each</p><p>2 clusters × (1 AM + 1 PM) = 4 per pod. ${fmt(r.settersPodTotal)} total/pod.</p>`);
+      updateCard('pay-total', `<h3>📊 TOTAL POD LABOR</h3><h2 class="gradient-text" style="font-size: 36px;">${fmt(r.podLabor)}/mo</h2><ul><li>Pod Lead ${fmtK(c.podLead)} · CSM ${fmtK(c.csm)} · MB ${fmtK(c.mb)} · Tech ${fmtK(c.tech)}</li><li>4 Setters ${fmt(r.settersPodTotal)}</li><li>+ Tools ${fmt(c.podTools)}</li></ul>`);
+      // Per-pod scenarios (recalc with diff appts)
+      const revAt = (apts) => 30 * (c.retainer + apts * c.priceAppt);
+      const lowRev = revAt(22), lowProfit = lowRev - r.podLabor;
+      const highRev = revAt(40), highProfit = highRev - r.podLabor;
+      updateCard('pod-pl-low', `<h3>CONSERVATIVE</h3><p class="mono">22 appts/mo · ${fmt(c.priceAppt)}/appt</p><p><strong>Pod revenue:</strong> ${fmt(lowRev)}/mo</p><p><strong>Less labor:</strong> ${fmt(r.podLabor)}</p><h2 class="gradient-text">${fmt(lowProfit)} profit</h2><p class="mono">~${Math.round(lowProfit/lowRev*100)}% pod margin</p>`);
+      updateCard('pod-pl-mid', `<h3>REALISTIC ★ (your inputs)</h3><p class="mono">${c.appts} appts/mo · ${fmt(c.priceAppt)}/appt</p><p><strong>Pod revenue:</strong> ${fmt(r.revPerPod)}/mo</p><p><strong>Less labor:</strong> ${fmt(r.podLabor)}</p><h2 class="gradient-text" style="font-size: 32px;">${fmt(r.podProfit)} profit</h2><p class="mono">~${Math.round(r.podProfit/r.revPerPod*100)}% pod margin</p>`);
+      updateCard('pod-pl-high', `<h3>AGGRESSIVE</h3><p class="mono">40 appts/mo · ${fmt(c.priceAppt)}/appt</p><p><strong>Pod revenue:</strong> ${fmt(highRev)}/mo</p><p><strong>Less labor:</strong> ${fmt(r.podLabor)}</p><h2 class="gradient-text" style="font-size: 32px;">${fmt(highProfit)} profit</h2><p class="mono">~${Math.round(highProfit/highRev*100)}% pod margin</p>`);
+      // Company P&L cards
+      updateCard('co-1pod', `<h3>1 POD · 30 CLIENTS</h3><p class="mono">${fmt(r.co1.gross)}/mo gross</p><ul><li>Pod labor: ${fmt(r.co1.labor)}</li><li>Closer: ${fmt(r.co1.closer)}</li><li>Software: ${fmt(r.co1.software)}</li><li>Own ads: ${fmt(r.co1.ads)}</li></ul><p><strong>Total costs: ${fmt(r.co1.total)}</strong></p><h2 class="gradient-text">${fmt(r.co1.net)} net</h2><p class="mono">~${Math.round(r.co1.net/r.co1.gross*100)}% net margin</p>`);
+      updateCard('co-2pod', `<h3>2 PODS · 60 CLIENTS ★</h3><p class="mono">${fmt(r.co2.gross)}/mo gross</p><ul><li>Pod labor: ${fmt(r.co2.labor)} (2×)</li><li>COO: ${fmt(r.co2.coo)}</li><li>Sales: ${fmt(r.co2.closer)}</li><li>Software: ${fmt(r.co2.software)}</li><li>Own ads: ${fmt(r.co2.ads)}</li><li>Your salary: ${fmt(r.co2.founder)}</li></ul><p><strong>Total: ${fmt(r.co2.total)}</strong></p><h2 class="gradient-text" style="font-size: 36px;">${fmt(r.co2.net)} net</h2><p class="mono">~${Math.round(r.co2.net/r.co2.gross*100)}% + your $${(r.co2.founder/1000).toFixed(0)}k salary</p>`);
+      updateCard('co-3pod', `<h3>3 PODS · 90 CLIENTS</h3><p class="mono">${fmt(r.co3.gross)}/mo gross</p><ul><li>Pod labor: ${fmt(r.co3.labor)} (3×)</li><li>COO: ${fmt(r.co3.coo)}</li><li>Sales: ${fmt(r.co3.closer)}</li><li>Software: ${fmt(r.co3.software)}</li><li>Own ads: ${fmt(r.co3.ads)}</li><li>Your salary: ${fmt(r.co3.founder)}</li></ul><p><strong>Total: ${fmt(r.co3.total)}</strong></p><h2 class="gradient-text" style="font-size: 36px;">${fmt(r.co3.net)} net</h2><p class="mono">~${Math.round(r.co3.net/r.co3.gross*100)}% + your $${(r.co3.founder/1000).toFixed(0)}k salary</p>`);
+      const annual = (r.co3.net + r.co3.founder) * 12;
+      updateCard('co-takehome', `<h3>🏆 YOUR TAKE-HOME (after expenses)</h3><p>You own 100%. Net + salary = your $.</p><table style="width:100%; border-collapse: collapse; margin: 12px 0; font-size: 14px;"><tr style="border-bottom: 1px solid #e7e5e4;"><td style="padding: 8px 0;"><strong>Pod 1 (30)</strong></td><td style="text-align: right;"><strong>${fmt(r.co1.net)}/mo</strong></td></tr><tr style="border-bottom: 1px solid #e7e5e4;"><td style="padding: 8px 0;"><strong>Pod 2 (60)</strong></td><td style="text-align: right;">${fmt(r.co2.net)} net + ${fmt(r.co2.founder)} salary = <strong>${fmt(r.co2.net + r.co2.founder)}/mo</strong></td></tr><tr><td style="padding: 8px 0;"><strong>Pod 3 (90)</strong></td><td style="text-align: right;">${fmt(r.co3.net)} net + ${fmt(r.co3.founder)} salary = <strong>${fmt(r.co3.net + r.co3.founder)}/mo</strong></td></tr></table><p><strong>Annual at 3 pods:</strong> ~${fmt(annual)}/yr</p>`);
+
+      // Org chart boxes (pay info inline)
+      const updateOrg = (id, html) => updateCard(id, html);
+      updateOrg('pod-ceo', `<p>CEO<small>Ramiz · ${fmtK(c.founder)}/mo salary<br>+ ${fmtK(r.co3.net)}/mo profit share</small></p>`);
+      updateOrg('pod-coo', `<p>COO<small>runs all pods · ${fmtK(c.coo)}/mo</small></p>`);
+      ['pod1-lead','pod2-lead','pod3-lead'].forEach((id, i) => {
+        const niche = ['niche A','niche B','niche C'][i];
+        updateOrg(id, `<p>POD ${i+1} LEAD<small>30 clients · ${niche} · ${fmtK(c.podLead)}/mo<br>POD NET: ${fmtK(r.podProfit)}/mo</small></p>`);
+      });
+      ['pod1-csm','pod2-csm','pod3-csm'].forEach(id => updateOrg(id, `<p>CSM<small>30 clients · ${fmtK(c.csm)}/mo</small></p>`));
+      ['pod1-mb','pod2-mb','pod3-mb'].forEach(id => updateOrg(id, `<p>MEDIA BUYER<small>30 clients · ${fmtK(c.mb)}/mo</small></p>`));
+      ['pod1-tech','pod2-tech','pod3-tech'].forEach(id => updateOrg(id, `<p>TECH<small>${fmtK(c.tech)}/mo</small></p>`));
+      ['pod1-c1-am','pod2-c1-am','pod3-c1-am','pod1-c2-am','pod2-c2-am','pod3-c2-am'].forEach(id => updateOrg(id, `<p>SETTER<small>morning · ${fmtK(r.setterPay)}/mo</small></p>`));
+      ['pod1-c1-pm','pod2-c1-pm','pod3-c1-pm','pod1-c2-pm','pod2-c2-pm','pod3-c2-pm'].forEach(id => updateOrg(id, `<p>SETTER<small>night · ${fmtK(r.setterPay)}/mo</small></p>`));
+      ['jul-csm'].forEach(id => updateOrg(id, `<p>CSM<small>${fmtK(c.csm)}/mo · owns 9-15c</small></p>`));
+      ['now-setter1'].forEach(id => updateOrg(id, `<p>SETTER<small>Ahed · AM · ${fmtK(r.setterPay)}</small></p>`));
+      ['now-setter2'].forEach(id => updateOrg(id, `<p>SETTER<small>Lyann · PM · ${fmtK(r.setterPay)}</small></p>`));
+      ['now-setter3'].forEach(id => updateOrg(id, `<p>SETTER<small>Vinyah · PM · ${fmtK(r.setterPay)}</small></p>`));
+      ['jul-set1'].forEach(id => updateOrg(id, `<p>SETTER<small>Ahed · ${fmtK(r.setterPay)}</small></p>`));
+      ['jul-set2'].forEach(id => updateOrg(id, `<p>SETTER<small>Lyann · ${fmtK(r.setterPay)}</small></p>`));
+      ['jul-set3'].forEach(id => updateOrg(id, `<p>SETTER<small>Vinyah · ${fmtK(r.setterPay)}</small></p>`));
+    }
+
+    function toggleSettings() {
+      const p = document.getElementById('settings-panel');
+      p.classList.toggle('open');
+      if (p.classList.contains('open')) { renderInputs(); renderResults(); }
+    }
+    function resetNumbers() {
+      CONFIG = { ...DEFAULTS };
+      saveConfig();
+      renderInputs();
+      renderResults();
+    }
+
+    function wireInputs() {
+      ['cfg-appts','cfg-priceAppt','cfg-retainer','cfg-podLead','cfg-csm','cfg-mb','cfg-tech','cfg-setterHr','cfg-setterHrsDay','cfg-setterDaysMo','cfg-podTools','cfg-coo','cfg-closer','cfg-software','cfg-ownAds','cfg-founder'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('input', () => { readInputs(); saveConfig(); renderResults(); });
+      });
+    }
+
     // --- Saved layout (localStorage) ---
     const LAYOUT_KEY = 'rambitious-vision-board-layout-v1';
     function saveLayout() {
@@ -1447,6 +1720,11 @@
 
     fitToScreen();
     window.addEventListener('resize', fitToScreen);
+
+    // Init settings panel + first render
+    renderInputs();
+    wireInputs();
+    renderResults();
   </script>
 </body>
 </html>
