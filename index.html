@@ -10,69 +10,78 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-0: #07070b; --bg-1: #0e0e15; --bg-2: #15151e; --bg-3: #1c1c28;
-      --line: #2a2a3a; --text: #e8e8ea; --text-dim: #9999a8; --text-faint: #5a5a6a;
-      --p-1: #a855f7; --p-2: #ec4899; --p-3: #fb7185; --p-4: #f97316;
-      --green: #34d399; --yellow: #fbbf24; --red: #f87171; --cyan: #22d3ee;
+      --bg-0: #fafaf9;
+      --bg-1: #f4f4f3;
+      --card-bg: #ffffff;
+      --card-bg-soft: #fbfbfa;
+      --line: #e7e5e4;
+      --line-soft: #f0efed;
+      --text: #18181b;
+      --text-dim: #52525b;
+      --text-faint: #a1a1aa;
+      --p-1: #7c3aed; --p-2: #db2777; --p-3: #e11d48; --p-4: #ea580c;
+      --green: #16a34a; --yellow: #ca8a04; --red: #dc2626; --cyan: #0891b2;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { width: 100%; height: 100%; background: var(--bg-0); color: var(--text); font-family: 'DM Sans', system-ui, sans-serif; overflow: hidden; letter-spacing: -0.01em; }
+    html, body { width: 100%; height: 100%; background: var(--bg-0); color: var(--text); font-family: 'DM Sans', system-ui, sans-serif; overflow: hidden; letter-spacing: -0.005em; -webkit-font-smoothing: antialiased; }
     .syne { font-family: 'Syne', 'DM Sans', sans-serif; letter-spacing: -0.02em; }
     .mono { font-family: 'JetBrains Mono', monospace; }
-    .gradient-text { background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #fb7185 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .canvas-viewport { position: fixed; inset: 0; overflow: hidden; cursor: grab; background-color: var(--bg-0); background-image: radial-gradient(circle, rgba(168, 85, 247, 0.08) 1px, transparent 1px); background-size: 30px 30px; }
+    .gradient-text { background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #e11d48 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .canvas-viewport { position: fixed; inset: 0; overflow: hidden; cursor: grab; background-color: var(--bg-0); background-image: radial-gradient(circle, rgba(0, 0, 0, 0.05) 1px, transparent 1px); background-size: 28px 28px; }
     .canvas-viewport.dragging { cursor: grabbing; }
     .canvas-world { position: absolute; top: 0; left: 0; transform-origin: 0 0; will-change: transform; }
-    .glow-orb { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.25; pointer-events: none; }
+    .glow-orb { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.12; pointer-events: none; }
     .edges-svg { position: absolute; top: 0; left: 0; pointer-events: none; overflow: visible; }
-    .edge { fill: none; stroke: rgba(168, 85, 247, 0.4); stroke-width: 2; }
-    .edge-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; fill: var(--text-faint); }
-    .card { position: absolute; background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.5); transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease; overflow: hidden; cursor: pointer; }
-    .card:hover { border-color: rgba(168, 85, 247, 0.5); box-shadow: 0 8px 40px -8px rgba(168, 85, 247, 0.3); transform: translateY(-2px); z-index: 10; }
-    .card-content { font-size: 13px; line-height: 1.55; color: var(--text); }
-    .card-content h1 { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; margin-bottom: 6px; line-height: 1.05; }
-    .card-content h2 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 8px; line-height: 1.1; }
-    .card-content h3 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 6px; line-height: 1.15; }
-    .card-content p { margin-bottom: 8px; color: var(--text-dim); }
-    .card-content ul, .card-content ol { padding-left: 18px; margin-bottom: 6px; }
-    .card-content li { margin-bottom: 4px; color: var(--text-dim); font-size: 12.5px; }
+    .edge { fill: none; stroke: rgba(124, 58, 237, 0.35); stroke-width: 2; }
+    .edge-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; fill: var(--text-faint); }
+    .card { position: absolute; background: var(--card-bg); border: 1px solid var(--line); border-radius: 16px; padding: 28px 30px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04); transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease; overflow: hidden; cursor: pointer; }
+    .card:hover { border-color: rgba(124, 58, 237, 0.4); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04), 0 12px 28px rgba(124, 58, 237, 0.10); transform: translateY(-2px); z-index: 10; }
+    .card-content { font-size: 15px; line-height: 1.65; color: var(--text); font-weight: 400; }
+    .card-content h1 { font-family: 'Syne', sans-serif; font-size: 38px; font-weight: 800; margin-bottom: 10px; line-height: 1.05; color: var(--text); }
+    .card-content h2 { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 700; margin-bottom: 14px; line-height: 1.15; color: var(--text); }
+    .card-content h3 { font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 700; margin-bottom: 10px; line-height: 1.2; color: var(--text); }
+    .card-content p { margin-bottom: 12px; color: var(--text-dim); font-size: 15px; }
+    .card-content ul, .card-content ol { padding-left: 22px; margin-bottom: 10px; margin-top: 4px; }
+    .card-content li { margin-bottom: 8px; color: var(--text-dim); font-size: 14.5px; line-height: 1.55; }
+    .card-content li::marker { color: var(--p-1); }
     .card-content strong { color: var(--text); font-weight: 600; }
     .card-content em { font-style: italic; }
-    .card-content blockquote { border-left: 3px solid var(--p-2); padding: 4px 12px; margin: 6px 0; color: var(--text-dim); font-style: italic; font-size: 13px; }
-    .card-content code { font-family: 'JetBrains Mono', monospace; font-size: 11px; background: var(--bg-1); padding: 1px 5px; border-radius: 3px; color: var(--p-2); }
-    .card-content .mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.1em; }
-    .card-content .gradient-text { background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #fb7185 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .card.color-1 { border-color: rgba(248, 113, 113, 0.4); background: linear-gradient(135deg, rgba(248, 113, 113, 0.06) 0%, var(--bg-2) 100%); }
-    .card.color-2 { border-color: rgba(251, 146, 60, 0.4); background: linear-gradient(135deg, rgba(251, 146, 60, 0.06) 0%, var(--bg-2) 100%); }
-    .card.color-3 { border-color: rgba(251, 191, 36, 0.4); background: linear-gradient(135deg, rgba(251, 191, 36, 0.06) 0%, var(--bg-2) 100%); }
-    .card.color-4 { border-color: rgba(52, 211, 153, 0.4); background: linear-gradient(135deg, rgba(52, 211, 153, 0.06) 0%, var(--bg-2) 100%); }
-    .card.color-5 { border-color: rgba(34, 211, 238, 0.4); background: linear-gradient(135deg, rgba(34, 211, 238, 0.06) 0%, var(--bg-2) 100%); }
-    .card.color-6 { border-color: rgba(168, 85, 247, 0.5); background: linear-gradient(135deg, rgba(168, 85, 247, 0.08) 0%, var(--bg-2) 100%); box-shadow: 0 0 30px -10px rgba(168, 85, 247, 0.3); }
-    .card.current { animation: pulse-glow 3s ease-in-out infinite; }
-    @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 30px -10px rgba(236, 72, 153, 0.4); } 50% { box-shadow: 0 0 50px -5px rgba(236, 72, 153, 0.7); } }
-    .topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 14px 20px; backdrop-filter: blur(16px); background: rgba(7, 7, 11, 0.6); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .topbar-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; }
-    .topbar-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; }
+    .card-content blockquote { border-left: 3px solid var(--p-2); padding: 8px 16px; margin: 10px 0; color: var(--text); font-style: italic; font-size: 15.5px; background: linear-gradient(90deg, rgba(219, 39, 119, 0.05) 0%, transparent 100%); border-radius: 0 8px 8px 0; }
+    .card-content code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: var(--bg-1); padding: 2px 6px; border-radius: 4px; color: var(--p-1); }
+    .card-content .mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; }
+    .card-content .gradient-text { background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #e11d48 100%); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 700; }
+    .card.color-1 { border-left: 4px solid #dc2626; }
+    .card.color-2 { border-left: 4px solid #ea580c; }
+    .card.color-3 { border-left: 4px solid #ca8a04; }
+    .card.color-4 { border-left: 4px solid #16a34a; }
+    .card.color-5 { border-left: 4px solid #0891b2; }
+    .card.color-6 { border-left: 4px solid #7c3aed; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(124, 58, 237, 0.12); }
+    .card.current { animation: pulse-glow 3s ease-in-out infinite; border-left: 4px solid #db2777; }
+    @keyframes pulse-glow { 0%, 100% { box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(219, 39, 119, 0.18); } 50% { box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 12px 40px rgba(219, 39, 119, 0.32); } }
+    .topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 24px; backdrop-filter: blur(20px); background: rgba(250, 250, 249, 0.85); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .topbar-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px; }
+    .topbar-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; }
     .topbar-btns { display: flex; gap: 8px; flex-wrap: wrap; }
-    .btn { background: var(--bg-2); border: 1px solid var(--line); color: var(--text); padding: 7px 14px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s ease; }
-    .btn:hover { border-color: rgba(168, 85, 247, 0.5); transform: translateY(-1px); }
-    .btn-primary { background: linear-gradient(135deg, var(--p-1) 0%, var(--p-2) 100%); border: none; }
-    .zoom-controls { position: fixed; bottom: 20px; right: 20px; z-index: 100; display: flex; flex-direction: column; gap: 4px; background: rgba(7, 7, 11, 0.8); backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: 10px; padding: 6px; }
-    .zoom-btn { background: transparent; border: none; color: var(--text); width: 36px; height: 36px; border-radius: 6px; cursor: pointer; font-size: 18px; font-weight: 600; font-family: 'JetBrains Mono', monospace; transition: background 0.15s ease; }
-    .zoom-btn:hover { background: rgba(168, 85, 247, 0.15); }
-    .zoom-level { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); text-align: center; padding: 4px 0; }
-    .minimap { position: fixed; bottom: 20px; left: 20px; z-index: 100; width: 200px; height: 130px; background: rgba(7, 7, 11, 0.8); backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; cursor: pointer; }
+    .btn { background: var(--card-bg); border: 1px solid var(--line); color: var(--text); padding: 8px 16px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s ease; }
+    .btn:hover { border-color: var(--p-1); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124, 58, 237, 0.12); }
+    .btn-primary { background: linear-gradient(135deg, var(--p-1) 0%, var(--p-2) 100%); border: none; color: white; }
+    .btn-primary:hover { box-shadow: 0 8px 20px rgba(124, 58, 237, 0.28); }
+    .zoom-controls { position: fixed; bottom: 24px; right: 24px; z-index: 100; display: flex; flex-direction: column; gap: 4px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 12px; padding: 6px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); }
+    .zoom-btn { background: transparent; border: none; color: var(--text); width: 40px; height: 40px; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: 600; font-family: 'JetBrains Mono', monospace; transition: background 0.15s ease; }
+    .zoom-btn:hover { background: var(--bg-1); }
+    .zoom-level { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); text-align: center; padding: 4px 0; font-weight: 600; }
+    .minimap { position: fixed; bottom: 24px; left: 24px; z-index: 100; width: 220px; height: 140px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); }
     .minimap-canvas { position: relative; width: 100%; height: 100%; }
-    .minimap-node { position: absolute; border-radius: 1px; }
-    .minimap-viewport { position: absolute; border: 1.5px solid var(--p-2); border-radius: 3px; background: rgba(236, 72, 153, 0.15); pointer-events: none; }
-    .welcome { position: fixed; inset: 0; z-index: 200; background: rgba(7, 7, 11, 0.9); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: center; animation: fadeIn 0.4s ease; }
+    .minimap-node { position: absolute; border-radius: 2px; }
+    .minimap-viewport { position: absolute; border: 2px solid var(--p-2); border-radius: 4px; background: rgba(219, 39, 119, 0.08); pointer-events: none; }
+    .welcome { position: fixed; inset: 0; z-index: 200; background: rgba(250, 250, 249, 0.95); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: center; animation: fadeIn 0.4s ease; }
     .welcome.hidden { display: none; }
-    .welcome-card { background: var(--bg-2); border: 1px solid var(--line); border-radius: 16px; padding: 36px; max-width: 480px; text-align: center; }
-    .welcome-card h1 { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800; margin-bottom: 12px; }
-    .welcome-card p { color: var(--text-dim); margin-bottom: 24px; font-size: 14px; line-height: 1.6; }
-    .welcome-card .controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
-    .control-row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text-dim); }
-    .key { font-family: 'JetBrains Mono', monospace; font-size: 11px; background: var(--bg-3); border: 1px solid var(--line); padding: 3px 8px; border-radius: 4px; color: var(--text); }
+    .welcome-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 20px; padding: 44px; max-width: 520px; text-align: center; box-shadow: 0 24px 80px rgba(0, 0, 0, 0.08); }
+    .welcome-card h1 { font-family: 'Syne', sans-serif; font-size: 42px; font-weight: 800; margin-bottom: 14px; }
+    .welcome-card p { color: var(--text-dim); margin-bottom: 28px; font-size: 16px; line-height: 1.65; }
+    .welcome-card .controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+    .control-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-dim); }
+    .key { font-family: 'JetBrains Mono', monospace; font-size: 11px; background: var(--bg-1); border: 1px solid var(--line); padding: 4px 9px; border-radius: 5px; color: var(--text); font-weight: 600; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @media (max-width: 768px) { .topbar-meta { display: none; } .minimap { display: none; } }
   </style>
