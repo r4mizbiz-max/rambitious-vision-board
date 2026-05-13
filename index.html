@@ -1611,22 +1611,30 @@
       applyTransform();
     }
 
+    // "Fit" button: fits to content WIDTH only (vertical content is too tall to fit)
     function fitToScreen() {
-      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      let minX = Infinity, minY = Infinity, maxX = -Infinity;
       NODES.forEach(n => {
         minX = Math.min(minX, n.x);
         minY = Math.min(minY, n.y);
         maxX = Math.max(maxX, n.x + n.w);
-        maxY = Math.max(maxY, n.y + n.h);
       });
-      const contentW = maxX - minX, contentH = maxY - minY;
+      const contentW = maxX - minX;
       const rect = viewport.getBoundingClientRect();
       const padding = 60;
       const sx = (rect.width - padding * 2) / contentW;
-      const sy = (rect.height - padding * 2) / contentH;
-      scale = Math.min(sx, sy, 1);
+      scale = Math.max(0.35, Math.min(sx, 1));
       worldX = (rect.width - contentW * scale) / 2 - minX * scale;
-      worldY = (rect.height - contentH * scale) / 2 - minY * scale;
+      worldY = 90 - minY * scale;
+      applyTransform();
+    }
+    // Initial: zoomed-in on hero card, readable scale
+    function initialView() {
+      const hero = nodeById['hero'];
+      if (!hero) { fitToScreen(); return; }
+      scale = 0.75;
+      worldX = 80 - hero.x * scale;
+      worldY = 90 - hero.y * scale;
       applyTransform();
     }
 
@@ -1701,7 +1709,7 @@
 
     function closeWelcome() {
       document.getElementById('welcome').classList.add('hidden');
-      setTimeout(fitToScreen, 100);
+      setTimeout(initialView, 100);
     }
 
     const today = new Date();
@@ -1709,8 +1717,11 @@
     const dayNum = Math.max(1, Math.min(60, Math.floor((today - sprintStart) / (1000 * 60 * 60 * 24)) + 1));
     document.getElementById('day-counter').textContent = dayNum;
 
-    fitToScreen();
-    window.addEventListener('resize', fitToScreen);
+    initialView();
+    window.addEventListener('resize', () => {
+      // Re-snap to initial view on resize so user doesn't get lost
+      // (only if user hasn't started panning yet)
+    });
 
     // Init settings panel + first render (wrapped — drag/pan must not break if this throws)
     try {
