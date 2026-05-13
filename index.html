@@ -59,6 +59,19 @@
     .card.color-5 { border-left: 4px solid #0891b2; }
     .card.color-6 { border-left: 4px solid #7c3aed; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(124, 58, 237, 0.12); }
     .card.current { animation: pulse-glow 3s ease-in-out infinite; border-left: 4px solid #db2777; }
+    /* Org-chart boxes — compact, single-line role labels */
+    .card.org-box { padding: 14px 18px; }
+    .card.org-box .card-content { font-size: 13px; line-height: 1.3; text-align: center; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+    .card.org-box .card-content p { margin: 0; color: var(--text); font-size: 13px; }
+    .card.org-box .card-content small { display: block; font-size: 10px; font-weight: 500; opacity: 0.7; text-transform: none; letter-spacing: 0; margin-top: 4px; color: var(--text-dim); }
+    .card.org-founder { background: #cffafe; border-color: #67e8f9; border-left: 4px solid #06b6d4; }
+    .card.org-ops { background: #fce7f3; border-color: #f9a8d4; border-left: 4px solid #db2777; }
+    .card.org-lead { background: #d1fae5; border-color: #6ee7b7; border-left: 4px solid #16a34a; }
+    .card.org-high { background: #fef3c7; border-color: #fcd34d; border-left: 4px solid #ca8a04; }
+    .card.org-entry { background: #ffffff; border-color: #e7e5e4; border-left: 4px solid #a1a1aa; }
+    .card.org-future { background: #fafafa; border: 2px dashed #d4d4d8; border-left: 4px dashed #a1a1aa; }
+    .card.org-future .card-content p { color: var(--text-faint); }
+    .edge.org-edge { stroke: #71717a; stroke-width: 1.5; }
     @keyframes pulse-glow { 0%, 100% { box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(219, 39, 119, 0.18); } 50% { box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 12px 40px rgba(219, 39, 119, 0.32); } }
     .topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 24px; backdrop-filter: blur(20px); background: rgba(250, 250, 249, 0.85); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .topbar-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px; }
@@ -114,6 +127,7 @@
       <button class="btn" onclick="jumpTo('right-now')">▶ Right Now</button>
       <button class="btn" onclick="jumpTo('w1')">📅 This Week</button>
       <button class="btn" onclick="jumpTo('roles-title')">👥 Roles</button>
+      <button class="btn" onclick="jumpTo('team-title')">🏗️ Team Chart</button>
       <button class="btn" onclick="resetLayout()" title="Reset card positions">↺ Reset Layout</button>
       <button class="btn btn-primary" onclick="jumpTo('hero')">⭐ North Star</button>
     </div>
@@ -714,6 +728,73 @@
         <p><strong>183</strong> Cam transcripts in vault</p>
         <p><strong>99</strong> JTM transcripts in vault</p>
       `},
+      // ===== TEAM STRUCTURE ORG CHARTS =====
+      { id: 'team-title', x: 0, y: 7780, w: 1900, h: 100, html: `
+        <h2>🏗️ TEAM STRUCTURE — Now → July → 2027</h2>
+        <p>The picture. Three states of who's on your team and how they connect.</p>
+      `},
+
+      // === LEGEND ===
+      { id: 'team-legend', x: 1950, y: 7900, w: 320, h: 360, html: `
+        <h3>🎨 Color Legend</h3>
+        <p style="display:flex;align-items:center;gap:8px;font-size:13px;"><span style="width:24px;height:14px;background:#cffafe;border-left:4px solid #06b6d4;border-radius:3px;"></span>Founder / CEO</p>
+        <p style="display:flex;align-items:center;gap:8px;font-size:13px;"><span style="width:24px;height:14px;background:#fce7f3;border-left:4px solid #db2777;border-radius:3px;"></span>Ops Manager / COO</p>
+        <p style="display:flex;align-items:center;gap:8px;font-size:13px;"><span style="width:24px;height:14px;background:#d1fae5;border-left:4px solid #16a34a;border-radius:3px;"></span>Team Lead / Pod Lead</p>
+        <p style="display:flex;align-items:center;gap:8px;font-size:13px;"><span style="width:24px;height:14px;background:#fef3c7;border-left:4px solid #ca8a04;border-radius:3px;"></span>High-level (CSM, MB, Tech, Closer)</p>
+        <p style="display:flex;align-items:center;gap:8px;font-size:13px;"><span style="width:24px;height:14px;background:#fff;border-left:4px solid #a1a1aa;border-radius:3px;"></span>Entry-level (Setter, Confirmer, VA)</p>
+        <p style="display:flex;align-items:center;gap:8px;font-size:13px;"><span style="width:24px;height:14px;background:#fafafa;border:1.5px dashed #d4d4d8;border-radius:3px;"></span>Future hire (not yet)</p>
+      `},
+
+      // === COLUMN 1: TODAY (May 13, 2026) ===
+      { id: 'team-now-title', x: 0, y: 7920, w: 600, h: 80, html: `
+        <h3>📍 TODAY (May 13)</h3>
+        <p style="margin:0;font-size:14px;"><strong>4 humans</strong> · 9 clients · ~$25-35k MRR · Stage 3</p>
+      `},
+      { id: 'now-founder', x: 220, y: 8030, w: 200, h: 60, boxType: 'org', role: 'founder', html: `<p>FOUNDER<small>Ramiz · all roles</small></p>` },
+      { id: 'now-setter1', x: 60, y: 8170, w: 180, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>Ahed · morning</small></p>` },
+      { id: 'now-setter2', x: 260, y: 8170, w: 180, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>Lyann · evening</small></p>` },
+      { id: 'now-setter3', x: 460, y: 8170, w: 180, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>Vinyah · evening</small></p>` },
+
+      // === COLUMN 2: JULY 2026 (after CSM hire) ===
+      { id: 'team-jul-title', x: 700, y: 7920, w: 600, h: 80, html: `
+        <h3>🎯 JULY 2026 (post-CSM)</h3>
+        <p style="margin:0;font-size:14px;"><strong>5 humans</strong> · 10-12 clients · ~$35-45k MRR · Stage 3 locked</p>
+      `},
+      { id: 'jul-founder', x: 920, y: 8030, w: 200, h: 60, boxType: 'org', role: 'founder', html: `<p>FOUNDER<small>Ramiz · strategy + key accts</small></p>` },
+      { id: 'jul-csm', x: 700, y: 8170, w: 180, h: 60, boxType: 'org', role: 'high', html: `<p>CSM<small>weekly check-ins · Defcon</small></p>` },
+      { id: 'jul-set1', x: 900, y: 8170, w: 180, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>Ahed</small></p>` },
+      { id: 'jul-set2', x: 1090, y: 8170, w: 180, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>Lyann</small></p>` },
+      { id: 'jul-set3', x: 1280, y: 8170, w: 90, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTER<small>Vinyah</small></p>` },
+
+      // === COLUMN 3: 2027 POD MODEL (Cam-style) ===
+      { id: 'team-2027-title', x: 0, y: 8290, w: 600, h: 80, html: `
+        <h3>🚀 2027+ POD MODEL</h3>
+        <p style="margin:0;font-size:14px;">Cam's $60M/yr structure · 3 pods × 30-50 clients each · niche-specific</p>
+      `},
+      { id: 'pod-ceo', x: 800, y: 8400, w: 200, h: 60, boxType: 'org', role: 'founder', html: `<p>CEO<small>Ramiz · vision + capital</small></p>` },
+      { id: 'pod-coo', x: 800, y: 8540, w: 200, h: 60, boxType: 'org', role: 'ops', html: `<p>COO<small>runs all pods</small></p>` },
+      // Pod 1 — Walk-in Showers
+      { id: 'pod1-lead', x: 200, y: 8700, w: 200, h: 60, boxType: 'org', role: 'lead', html: `<p>POD 1 LEAD<small>Walk-in showers · 30-50 clients</small></p>` },
+      { id: 'pod1-csm', x: 100, y: 8830, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>CSM</p>` },
+      { id: 'pod1-mb', x: 260, y: 8830, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>MEDIA BUYER</p>` },
+      { id: 'pod1-tech', x: 100, y: 8920, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>TECH</p>` },
+      { id: 'pod1-setters', x: 260, y: 8920, w: 140, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTERS x2</p>` },
+      // Pod 2 — Decks/Outdoor
+      { id: 'pod2-lead', x: 700, y: 8700, w: 200, h: 60, boxType: 'org', role: 'lead', html: `<p>POD 2 LEAD<small>Decks/outdoor · 30-50 clients</small></p>` },
+      { id: 'pod2-csm', x: 600, y: 8830, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>CSM</p>` },
+      { id: 'pod2-mb', x: 760, y: 8830, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>MEDIA BUYER</p>` },
+      { id: 'pod2-tech', x: 600, y: 8920, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>TECH</p>` },
+      { id: 'pod2-setters', x: 760, y: 8920, w: 140, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTERS x2</p>` },
+      // Pod 3 — HVAC/Other
+      { id: 'pod3-lead', x: 1200, y: 8700, w: 200, h: 60, boxType: 'org', role: 'lead', html: `<p>POD 3 LEAD<small>HVAC/painting · 30-50 clients</small></p>` },
+      { id: 'pod3-csm', x: 1100, y: 8830, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>CSM</p>` },
+      { id: 'pod3-mb', x: 1260, y: 8830, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>MEDIA BUYER</p>` },
+      { id: 'pod3-tech', x: 1100, y: 8920, w: 140, h: 60, boxType: 'org', role: 'high', html: `<p>TECH</p>` },
+      { id: 'pod3-setters', x: 1260, y: 8920, w: 140, h: 60, boxType: 'org', role: 'entry', html: `<p>SETTERS x2</p>` },
+      // Shared services
+      { id: 'pod-sales', x: 1600, y: 8540, w: 200, h: 60, boxType: 'org', role: 'high', html: `<p>SALES TEAM<small>centralized · feeds pods</small></p>` },
+      { id: 'pod-ops', x: 1600, y: 8700, w: 200, h: 60, boxType: 'org', role: 'ops', html: `<p>SHARED OPS<small>Finance · Hiring · IT</small></p>` },
+
       { id: 'how-to-use', x: 2200, y: 420, w: 500, h: 500, html: `
         <h2>🗺️ HOW TO USE THIS</h2>
         <p><strong>Pan:</strong> drag the background</p>
@@ -754,6 +835,35 @@
       { from: 'role-mb', to: 'role-closer' },
       { from: 'v1', to: 's3', label: 'you are here' },
       { from: 'price-1', to: 'hs-1', label: 'enables' },
+      // ===== ORG CHART EDGES (orthogonal) =====
+      // Now
+      { from: 'now-founder', to: 'now-setter1', org: true },
+      { from: 'now-founder', to: 'now-setter2', org: true },
+      { from: 'now-founder', to: 'now-setter3', org: true },
+      // July
+      { from: 'jul-founder', to: 'jul-csm', org: true },
+      { from: 'jul-founder', to: 'jul-set1', org: true },
+      { from: 'jul-founder', to: 'jul-set2', org: true },
+      { from: 'jul-founder', to: 'jul-set3', org: true },
+      // 2027 Pod
+      { from: 'pod-ceo', to: 'pod-coo', org: true },
+      { from: 'pod-coo', to: 'pod1-lead', org: true },
+      { from: 'pod-coo', to: 'pod2-lead', org: true },
+      { from: 'pod-coo', to: 'pod3-lead', org: true },
+      { from: 'pod1-lead', to: 'pod1-csm', org: true },
+      { from: 'pod1-lead', to: 'pod1-mb', org: true },
+      { from: 'pod1-lead', to: 'pod1-tech', org: true },
+      { from: 'pod1-lead', to: 'pod1-setters', org: true },
+      { from: 'pod2-lead', to: 'pod2-csm', org: true },
+      { from: 'pod2-lead', to: 'pod2-mb', org: true },
+      { from: 'pod2-lead', to: 'pod2-tech', org: true },
+      { from: 'pod2-lead', to: 'pod2-setters', org: true },
+      { from: 'pod3-lead', to: 'pod3-csm', org: true },
+      { from: 'pod3-lead', to: 'pod3-mb', org: true },
+      { from: 'pod3-lead', to: 'pod3-tech', org: true },
+      { from: 'pod3-lead', to: 'pod3-setters', org: true },
+      { from: 'pod-ceo', to: 'pod-sales', org: true },
+      { from: 'pod-coo', to: 'pod-ops', org: true },
     ];
 
     // --- Saved layout (localStorage) ---
@@ -800,7 +910,12 @@
     NODES.forEach(n => {
       nodeById[n.id] = n;
       const card = document.createElement('div');
-      card.className = 'card' + (n.color ? ` color-${n.color}` : '') + (n.current ? ' current' : '');
+      let cls = 'card';
+      if (n.color) cls += ` color-${n.color}`;
+      if (n.current) cls += ' current';
+      if (n.boxType === 'org') cls += ' org-box';
+      if (n.role) cls += ` org-${n.role}`;
+      card.className = cls;
       card.style.left = n.x + 'px';
       card.style.top = n.y + 'px';
       card.style.width = n.w + 'px';
@@ -852,11 +967,20 @@
           if (dy > 0) { x1 = fromCx; y1 = from.y + from.h; x2 = toCx; y2 = to.y; }
           else { x1 = fromCx; y1 = from.y; x2 = toCx; y2 = to.y + to.h; }
         }
-        const c1x = x1 + (x2 - x1) * 0.5, c1y = y1, c2x = x2 - (x2 - x1) * 0.5, c2y = y2;
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('class', 'edge');
-        path.setAttribute('d', `M ${x1} ${y1} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${x2} ${y2}`);
-        path.setAttribute('marker-end', 'url(#arrow)');
+        if (e.org) {
+          // Orthogonal stepped line for org chart (parent above, child below)
+          const px = fromCx, py = from.y + from.h;
+          const cx = toCx, cy = to.y;
+          const midY = (py + cy) / 2;
+          path.setAttribute('class', 'edge org-edge');
+          path.setAttribute('d', `M ${px} ${py} L ${px} ${midY} L ${cx} ${midY} L ${cx} ${cy}`);
+        } else {
+          const c1x = x1 + (x2 - x1) * 0.5, c1y = y1, c2x = x2 - (x2 - x1) * 0.5, c2y = y2;
+          path.setAttribute('class', 'edge');
+          path.setAttribute('d', `M ${x1} ${y1} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${x2} ${y2}`);
+          path.setAttribute('marker-end', 'url(#arrow)');
+        }
         edgesSvg.appendChild(path);
         if (e.label) {
           const midX = (x1 + x2) / 2, midY = (y1 + y2) / 2;
