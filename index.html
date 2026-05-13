@@ -4,105 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Rambitious Vision Board</title>
-  <meta name="description" content="Infinite canvas vision board · Stage 2 → Stage 3 · 60-day sprint" />
+  <meta name="description" content="Infinite canvas vision board · Lock delivery → raise price → hire CSM → scale" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-0: #07070b;
-      --bg-1: #0e0e15;
-      --bg-2: #15151e;
-      --bg-3: #1c1c28;
-      --line: #2a2a3a;
-      --text: #e8e8ea;
-      --text-dim: #9999a8;
-      --text-faint: #5a5a6a;
-      --p-1: #a855f7;
-      --p-2: #ec4899;
-      --p-3: #fb7185;
-      --p-4: #f97316;
-      --green: #34d399;
-      --yellow: #fbbf24;
-      --red: #f87171;
-      --cyan: #22d3ee;
+      --bg-0: #07070b; --bg-1: #0e0e15; --bg-2: #15151e; --bg-3: #1c1c28;
+      --line: #2a2a3a; --text: #e8e8ea; --text-dim: #9999a8; --text-faint: #5a5a6a;
+      --p-1: #a855f7; --p-2: #ec4899; --p-3: #fb7185; --p-4: #f97316;
+      --green: #34d399; --yellow: #fbbf24; --red: #f87171; --cyan: #22d3ee;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      width: 100%; height: 100%;
-      background: var(--bg-0);
-      color: var(--text);
-      font-family: 'DM Sans', system-ui, sans-serif;
-      overflow: hidden;
-      letter-spacing: -0.01em;
-    }
+    html, body { width: 100%; height: 100%; background: var(--bg-0); color: var(--text); font-family: 'DM Sans', system-ui, sans-serif; overflow: hidden; letter-spacing: -0.01em; }
     .syne { font-family: 'Syne', 'DM Sans', sans-serif; letter-spacing: -0.02em; }
     .mono { font-family: 'JetBrains Mono', monospace; }
-    .gradient-text {
-      background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #fb7185 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    /* Dot grid background */
-    .canvas-viewport {
-      position: fixed;
-      inset: 0;
-      overflow: hidden;
-      cursor: grab;
-      background-color: var(--bg-0);
-      background-image: radial-gradient(circle, rgba(168, 85, 247, 0.08) 1px, transparent 1px);
-      background-size: 30px 30px;
-    }
+    .gradient-text { background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #fb7185 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .canvas-viewport { position: fixed; inset: 0; overflow: hidden; cursor: grab; background-color: var(--bg-0); background-image: radial-gradient(circle, rgba(168, 85, 247, 0.08) 1px, transparent 1px); background-size: 30px 30px; }
     .canvas-viewport.dragging { cursor: grabbing; }
-    .canvas-world {
-      position: absolute;
-      top: 0; left: 0;
-      transform-origin: 0 0;
-      will-change: transform;
-    }
-    .glow-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(140px);
-      opacity: 0.25;
-      pointer-events: none;
-    }
-    .edges-svg {
-      position: absolute;
-      top: 0; left: 0;
-      pointer-events: none;
-      overflow: visible;
-    }
-    .edge {
-      fill: none;
-      stroke: rgba(168, 85, 247, 0.4);
-      stroke-width: 2;
-    }
-    .edge-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      fill: var(--text-faint);
-    }
-    .card {
-      position: absolute;
-      background: var(--bg-2);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 18px 20px;
-      box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.5);
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
-      overflow: hidden;
-      cursor: pointer;
-    }
-    .card:hover {
-      border-color: rgba(168, 85, 247, 0.5);
-      box-shadow: 0 8px 40px -8px rgba(168, 85, 247, 0.3);
-      transform: translateY(-2px);
-      z-index: 10;
-    }
+    .canvas-world { position: absolute; top: 0; left: 0; transform-origin: 0 0; will-change: transform; }
+    .glow-orb { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.25; pointer-events: none; }
+    .edges-svg { position: absolute; top: 0; left: 0; pointer-events: none; overflow: visible; }
+    .edge { fill: none; stroke: rgba(168, 85, 247, 0.4); stroke-width: 2; }
+    .edge-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; fill: var(--text-faint); }
+    .card { position: absolute; background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.5); transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease; overflow: hidden; cursor: pointer; }
+    .card:hover { border-color: rgba(168, 85, 247, 0.5); box-shadow: 0 8px 40px -8px rgba(168, 85, 247, 0.3); transform: translateY(-2px); z-index: 10; }
     .card-content { font-size: 13px; line-height: 1.55; color: var(--text); }
     .card-content h1 { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; margin-bottom: 6px; line-height: 1.05; }
     .card-content h2 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 8px; line-height: 1.1; }
@@ -112,22 +38,10 @@
     .card-content li { margin-bottom: 4px; color: var(--text-dim); font-size: 12.5px; }
     .card-content strong { color: var(--text); font-weight: 600; }
     .card-content em { font-style: italic; }
-    .card-content blockquote {
-      border-left: 3px solid var(--p-2);
-      padding: 4px 12px;
-      margin: 6px 0;
-      color: var(--text-dim);
-      font-style: italic;
-      font-size: 13px;
-    }
+    .card-content blockquote { border-left: 3px solid var(--p-2); padding: 4px 12px; margin: 6px 0; color: var(--text-dim); font-style: italic; font-size: 13px; }
     .card-content code { font-family: 'JetBrains Mono', monospace; font-size: 11px; background: var(--bg-1); padding: 1px 5px; border-radius: 3px; color: var(--p-2); }
     .card-content .mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.1em; }
-    .card-content .gradient-text {
-      background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #fb7185 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
+    .card-content .gradient-text { background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #fb7185 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .card.color-1 { border-color: rgba(248, 113, 113, 0.4); background: linear-gradient(135deg, rgba(248, 113, 113, 0.06) 0%, var(--bg-2) 100%); }
     .card.color-2 { border-color: rgba(251, 146, 60, 0.4); background: linear-gradient(135deg, rgba(251, 146, 60, 0.06) 0%, var(--bg-2) 100%); }
     .card.color-3 { border-color: rgba(251, 191, 36, 0.4); background: linear-gradient(135deg, rgba(251, 191, 36, 0.06) 0%, var(--bg-2) 100%); }
@@ -135,191 +49,70 @@
     .card.color-5 { border-color: rgba(34, 211, 238, 0.4); background: linear-gradient(135deg, rgba(34, 211, 238, 0.06) 0%, var(--bg-2) 100%); }
     .card.color-6 { border-color: rgba(168, 85, 247, 0.5); background: linear-gradient(135deg, rgba(168, 85, 247, 0.08) 0%, var(--bg-2) 100%); box-shadow: 0 0 30px -10px rgba(168, 85, 247, 0.3); }
     .card.current { animation: pulse-glow 3s ease-in-out infinite; }
-    @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 30px -10px rgba(236, 72, 153, 0.4); }
-      50% { box-shadow: 0 0 50px -5px rgba(236, 72, 153, 0.7); }
-    }
-    /* Top bar */
-    .topbar {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 14px 20px;
-      backdrop-filter: blur(16px);
-      background: rgba(7, 7, 11, 0.6);
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
+    @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 30px -10px rgba(236, 72, 153, 0.4); } 50% { box-shadow: 0 0 50px -5px rgba(236, 72, 153, 0.7); } }
+    .topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 14px 20px; backdrop-filter: blur(16px); background: rgba(7, 7, 11, 0.6); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .topbar-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; }
     .topbar-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; }
-    .topbar-btns { display: flex; gap: 8px; }
-    .btn {
-      background: var(--bg-2);
-      border: 1px solid var(--line);
-      color: var(--text);
-      padding: 7px 14px;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
+    .topbar-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn { background: var(--bg-2); border: 1px solid var(--line); color: var(--text); padding: 7px 14px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s ease; }
     .btn:hover { border-color: rgba(168, 85, 247, 0.5); transform: translateY(-1px); }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--p-1) 0%, var(--p-2) 100%);
-      border: none;
-    }
-    /* Zoom controls */
-    .zoom-controls {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      background: rgba(7, 7, 11, 0.8);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 6px;
-    }
-    .zoom-btn {
-      background: transparent;
-      border: none;
-      color: var(--text);
-      width: 36px;
-      height: 36px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 18px;
-      font-weight: 600;
-      font-family: 'JetBrains Mono', monospace;
-      transition: background 0.15s ease;
-    }
+    .btn-primary { background: linear-gradient(135deg, var(--p-1) 0%, var(--p-2) 100%); border: none; }
+    .zoom-controls { position: fixed; bottom: 20px; right: 20px; z-index: 100; display: flex; flex-direction: column; gap: 4px; background: rgba(7, 7, 11, 0.8); backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: 10px; padding: 6px; }
+    .zoom-btn { background: transparent; border: none; color: var(--text); width: 36px; height: 36px; border-radius: 6px; cursor: pointer; font-size: 18px; font-weight: 600; font-family: 'JetBrains Mono', monospace; transition: background 0.15s ease; }
     .zoom-btn:hover { background: rgba(168, 85, 247, 0.15); }
-    .zoom-level {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: var(--text-dim);
-      text-align: center;
-      padding: 4px 0;
-    }
-    /* Minimap */
-    .minimap {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      z-index: 100;
-      width: 200px;
-      height: 130px;
-      background: rgba(7, 7, 11, 0.8);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      overflow: hidden;
-      cursor: pointer;
-    }
-    .minimap-canvas {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-    .minimap-node {
-      position: absolute;
-      border-radius: 1px;
-    }
-    .minimap-viewport {
-      position: absolute;
-      border: 1.5px solid var(--p-2);
-      border-radius: 3px;
-      background: rgba(236, 72, 153, 0.15);
-      pointer-events: none;
-    }
-    /* Welcome modal */
-    .welcome {
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      background: rgba(7, 7, 11, 0.9);
-      backdrop-filter: blur(20px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: fadeIn 0.4s ease;
-    }
+    .zoom-level { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); text-align: center; padding: 4px 0; }
+    .minimap { position: fixed; bottom: 20px; left: 20px; z-index: 100; width: 200px; height: 130px; background: rgba(7, 7, 11, 0.8); backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; cursor: pointer; }
+    .minimap-canvas { position: relative; width: 100%; height: 100%; }
+    .minimap-node { position: absolute; border-radius: 1px; }
+    .minimap-viewport { position: absolute; border: 1.5px solid var(--p-2); border-radius: 3px; background: rgba(236, 72, 153, 0.15); pointer-events: none; }
+    .welcome { position: fixed; inset: 0; z-index: 200; background: rgba(7, 7, 11, 0.9); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: center; animation: fadeIn 0.4s ease; }
     .welcome.hidden { display: none; }
-    .welcome-card {
-      background: var(--bg-2);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 36px;
-      max-width: 480px;
-      text-align: center;
-    }
+    .welcome-card { background: var(--bg-2); border: 1px solid var(--line); border-radius: 16px; padding: 36px; max-width: 480px; text-align: center; }
     .welcome-card h1 { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800; margin-bottom: 12px; }
     .welcome-card p { color: var(--text-dim); margin-bottom: 24px; font-size: 14px; line-height: 1.6; }
     .welcome-card .controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
     .control-row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text-dim); }
     .key { font-family: 'JetBrains Mono', monospace; font-size: 11px; background: var(--bg-3); border: 1px solid var(--line); padding: 3px 8px; border-radius: 4px; color: var(--text); }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    /* Section labels (floating annotations) */
-    .section-label {
-      position: absolute;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--p-2);
-      pointer-events: none;
-      opacity: 0.6;
-    }
-    @media (max-width: 768px) {
-      .topbar-meta { display: none; }
-      .minimap { display: none; }
-    }
+    @media (max-width: 768px) { .topbar-meta { display: none; } .minimap { display: none; } }
   </style>
 </head>
 <body>
 
-  <!-- Welcome modal -->
   <div class="welcome" id="welcome">
     <div class="welcome-card">
       <h1 class="gradient-text">RAMBITIOUS</h1>
-      <p>Vision Board · Q2/Q3 2026 · 60-day sprint from Stage 2 → Stage 3</p>
+      <p>Vision Board · The 60-day plan: <strong>Lock delivery → Raise price → Hire CSM → Scale</strong></p>
       <div class="controls-grid">
         <div class="control-row"><span class="key">drag</span> pan canvas</div>
         <div class="control-row"><span class="key">scroll</span> zoom</div>
-        <div class="control-row"><span class="key">click card</span> highlight</div>
         <div class="control-row"><span class="key">F</span> fit to screen</div>
+        <div class="control-row"><span class="key">click card</span> highlight</div>
       </div>
       <button class="btn btn-primary" onclick="closeWelcome()" style="font-size: 14px; padding: 10px 24px;">ENTER THE BOARD →</button>
     </div>
   </div>
 
-  <!-- Top bar -->
   <div class="topbar">
     <div>
       <div class="topbar-title gradient-text">RAMBITIOUS · Vision Board</div>
-      <div class="topbar-meta">Q2/Q3 2026 · Day <span id="day-counter">1</span> of 60 · Stage 2 → 3</div>
+      <div class="topbar-meta">Day <span id="day-counter">1</span> of 60 · 9 clients · Stage 3</div>
     </div>
     <div class="topbar-btns">
       <button class="btn" onclick="fitToScreen()">⌂ Fit</button>
-      <button class="btn" onclick="jumpTo('w1')">▶ Today's anchor</button>
+      <button class="btn" onclick="jumpTo('right-now')">▶ Right Now</button>
+      <button class="btn" onclick="jumpTo('w1')">📅 This Week</button>
+      <button class="btn" onclick="jumpTo('roles-title')">👥 Roles</button>
       <button class="btn btn-primary" onclick="jumpTo('hero')">⭐ North Star</button>
     </div>
   </div>
 
-  <!-- Canvas -->
   <div class="canvas-viewport" id="viewport">
     <div class="canvas-world" id="world">
       <div class="glow-orb" style="background: var(--p-1); width: 800px; height: 800px; top: -200px; left: -100px;"></div>
       <div class="glow-orb" style="background: var(--p-3); width: 700px; height: 700px; top: 2200px; left: 600px;"></div>
       <div class="glow-orb" style="background: var(--p-2); width: 600px; height: 600px; top: 4000px; left: 200px;"></div>
+      <div class="glow-orb" style="background: var(--p-4); width: 700px; height: 700px; top: 5500px; left: 800px;"></div>
       <svg class="edges-svg" id="edges">
         <defs>
           <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -327,11 +120,9 @@
           </marker>
         </defs>
       </svg>
-      <!-- cards rendered here via JS -->
     </div>
   </div>
 
-  <!-- Zoom controls -->
   <div class="zoom-controls">
     <button class="zoom-btn" onclick="zoomBy(1.2)">+</button>
     <div class="zoom-level" id="zoom-level">100%</div>
@@ -339,7 +130,6 @@
     <button class="zoom-btn" onclick="fitToScreen()" title="Fit">⌂</button>
   </div>
 
-  <!-- Minimap -->
   <div class="minimap" id="minimap">
     <div class="minimap-canvas" id="minimap-canvas">
       <div class="minimap-viewport" id="minimap-viewport"></div>
@@ -347,385 +137,595 @@
   </div>
 
   <script>
-    // === DATA: cards + edges ===
     const NODES = [
+      // ===== HERO =====
       { id: 'hero', x: 0, y: 0, w: 900, h: 320, color: 6, html: `
         <h1>🎯 RAMBITIOUS</h1>
-        <h2 class="gradient-text">Vision Board · Q2/Q3 2026</h2>
-        <p><strong>Stage 2 → 3 bridge</strong></p>
-        <p>60-day sprint · May 13 → Jul 11</p>
-        <blockquote>"The agency model is a great beginner model to make 100 grand a month in profit, then cash cow it and go into something else." — Cam, $60M/yr video</blockquote>
+        <h2 class="gradient-text">The 60-Day Plan · May 13 → Jul 11</h2>
+        <p><strong>Lock delivery → Raise price → Hire CSM → Scale</strong></p>
+        <p>9 clients · 6 PPSA + 3 PPL · $25-35k MRR est. · 3 setters · Stage 3</p>
+        <blockquote>"Set in stone by July. CSM hired. Bulletproof delivery. $497 tier ready. Then real scale starts."</blockquote>
       `},
+
+      // ===== NORTH STAR =====
       { id: 'ns-title', x: 1000, y: 0, w: 400, h: 60, html: `<h2>⭐ NORTH STAR</h2>` },
-      { id: 'ns-2027', x: 1000, y: 80, w: 400, h: 200, html: `
-        <h3>2027+ · POD MODEL</h3>
-        <p>40-50 clients per pod</p>
-        <p>CSM + Media Buyer + Tech per pod</p>
-        <p>Ramiz = CEO. Not in client conversations. Building the next vehicle.</p>
+      { id: 'ns-future', x: 1000, y: 80, w: 400, h: 240, html: `
+        <h3>2027+ · Half-Software Agency</h3>
+        <p><strong>Productized PPSA model:</strong></p>
+        <ul>
+          <li>Client dashboard shows leads, appts, ROI live</li>
+          <li>CSM monitors all 9 clients via the dashboard</li>
+          <li>Setters fill the funnel</li>
+          <li>Founder = strategic only, in 1 call/wk per client max</li>
+        </ul>
+        <p>"They almost sell themselves" — Ramiz</p>
       `},
-      { id: 'ns-q4', x: 1000, y: 300, w: 400, h: 200, color: 6, html: `
-        <h3>2026 Q4 · $50-100k/mo</h3>
-        <p>CSM + Media Buyer hired</p>
-        <p>Slack auto-reports at 8am</p>
-        <p>Setters auto-rhythm</p>
-        <p>Founder &lt;20 hrs/wk IN the biz</p>
+      { id: 'ns-q4', x: 1000, y: 340, w: 400, h: 200, color: 6, html: `
+        <h3>2026 Q4 · $50-80k MRR</h3>
+        <p>12-15 clients all on $497 PPSA</p>
+        <p>CSM owns ALL client comms</p>
+        <p>Junior MB runs ads</p>
+        <p>Founder &lt;25 hrs/wk in the biz</p>
       `},
-      { id: 'ns-jul11', x: 1000, y: 520, w: 400, h: 200, color: 5, html: `
+      { id: 'ns-jul11', x: 1000, y: 560, w: 400, h: 220, color: 5, html: `
         <h3>▶ JUL 11 (60-day target)</h3>
-        <h2 class="gradient-text">$25-30k/mo</h2>
-        <p>CSM ramping</p>
-        <p>Dashboard alive</p>
-        <p>Slack 8am report posting</p>
-        <p><strong>Founder out of day-to-day client comms</strong></p>
+        <h2 class="gradient-text">$35-45k MRR</h2>
+        <ul>
+          <li>Delivery SOP locked + tested</li>
+          <li>Call center component live</li>
+          <li>$497 tier active for new clients</li>
+          <li>CSM hired + Day 1-14 onboarded</li>
+          <li>CSM owns ≥5 of 9 clients</li>
+          <li>Founder freed ~15 hrs/wk</li>
+        </ul>
       `},
+
+      // ===== TODAY =====
       { id: 'today-title', x: 0, y: 380, w: 900, h: 130, html: `
         <h2>📍 TODAY (May 13, 2026)</h2>
-        <p><strong>Stage 2 → 3 bridge</strong> · ~$15-22k MRR · 6 clients · 3 setters (B2C) · PPSA + $297 retainer</p>
+        <p><strong>9 clients</strong> · 6 PPSA ($297/mo + appt fee) · 3 PPL (Holmes, Airmergency, Exterior Recovery) · <strong>3 setters running B2C</strong> · <strong>Testing new Meta strategy</strong> · ~$25-35k MRR estimated</p>
       `},
-      { id: 'today-good', x: 0, y: 540, w: 440, h: 280, color: 4, html: `
+      { id: 'today-good', x: 0, y: 540, w: 440, h: 320, color: 4, html: `
         <h2>✅ What's working</h2>
         <ul>
-          <li>Brain fully scaffolded — 28 Cam patterns, 283 transcripts, every SOP written</li>
-          <li>6 active clients (Holmes, Reece, Airmergency, Exterior Recovery, +2)</li>
-          <li>3 setters running B2C</li>
-          <li>PPSA + $297 pricing locked</li>
-          <li>Agency OS dashboard exists on Netlify</li>
-          <li>Cam + JTM YouTube libraries pulled</li>
+          <li><strong>9 paying clients</strong> — proof the offer works</li>
+          <li>3 setters in rotation — capacity for ~6 more clients</li>
+          <li>PPSA model proven on 6 clients</li>
+          <li>PPL clients (Holmes, Airmerg, ExtRec) generating steady revenue</li>
+          <li>Brain fully scaffolded — 28 Cam patterns, 283 transcripts, all SOPs</li>
+          <li>Agency OS dashboard exists</li>
+          <li>GHL + Meta + Slack infrastructure in place</li>
+          <li>Strong vault knowledge base (Cam + JTM)</li>
         </ul>
       `},
-      { id: 'today-bad', x: 460, y: 540, w: 440, h: 280, color: 2, html: `
-        <h2>🟡 What's breaking</h2>
+      { id: 'today-bad', x: 460, y: 540, w: 440, h: 320, color: 2, html: `
+        <h2>🟡 What needs fixing</h2>
         <ul>
-          <li>Founder = media buyer + CSM + ops + sales + closer + bookkeeper (the bottleneck)</li>
-          <li>Tracker clunky, inaccurate, missing pieces</li>
-          <li>Platform webhooks not wired (no real-time sync)</li>
-          <li>No Slack workspace yet</li>
-          <li>No daily auto-report</li>
-          <li>No CSM, no media buyer</li>
-          <li>Founder owns every client convo</li>
+          <li><strong>New Meta strategy not yet bulletproof</strong> — must prove before scaling</li>
+          <li>No documented PPSA delivery SOP — founder still figuring it out per client</li>
+          <li>Call center component not built — needed to justify $497 tier</li>
+          <li>Founder = sales + ad ops + CSM + closer + ops (5 hats)</li>
+          <li>No CSM hired yet — every client convo through founder</li>
+          <li>Tracker clunky, missing pieces (Phase B audit pending)</li>
+          <li>$297 price below what delivery is worth</li>
         </ul>
       `},
-      { id: 'vehicles-title', x: 0, y: 900, w: 900, h: 100, html: `
-        <h2>🏛️ CAM'S 3-VEHICLE PYRAMID</h2>
-        <p>Layers of business vehicles. Earn your way up. Don't skip.</p>
+
+      // ===== RIGHT NOW PRIORITY =====
+      { id: 'right-now', x: 0, y: 920, w: 1500, h: 100, color: 6, html: `
+        <h2>🔥 RIGHT NOW (Weeks 1-3 · May 13 → June 2) — LOCK DELIVERY FIRST</h2>
+        <p><strong>Don't scale broken delivery.</strong> Before anything else: prove the new Meta strategy works. Document it as SOP. Build the call center component. THEN raise the price + hire.</p>
       `},
-      { id: 'v3', x: 200, y: 1040, w: 500, h: 150, color: 4, html: `
+      { id: 'rn-1', x: 0, y: 1060, w: 480, h: 280, color: 6, current: true, html: `
+        <h3>① BULLETPROOF THE META STRATEGY</h3>
+        <p class="mono">Wk 1-2 · May 13-26</p>
+        <p><strong>Test on 2 best clients first, NOT all 6 at once.</strong></p>
+        <ul>
+          <li>Pick 2 clients (your most patient, most loyal)</li>
+          <li>Apply new strategy 1:1 with hypothesis logged</li>
+          <li>5-7 day measurement window per Cam rule</li>
+          <li>Track CPL, CPB, show rate, close rate</li>
+          <li>If working → roll out to client #3, #4</li>
+          <li>If not → iterate, log to graveyard, retry</li>
+        </ul>
+        <p><strong>Document every step as a PPSA SOP.</strong></p>
+      `},
+      { id: 'rn-2', x: 500, y: 1060, w: 480, h: 280, color: 6, html: `
+        <h3>② BUILD CALL CENTER COMPONENT</h3>
+        <p class="mono">Wk 2-3 · May 20 - Jun 2</p>
+        <p><strong>This is what justifies $497 tier.</strong></p>
+        <ul>
+          <li>What it includes: inbound call scripts, Loom training for setters, scheduling protocols</li>
+          <li>Who runs it: setters initially, then dedicated confirmer role later</li>
+          <li>Tools: existing GHL + script library + dashboard</li>
+          <li>Differentiation: most agencies just send leads. You CALL them, qualify, then send.</li>
+        </ul>
+        <p>By June 2: package deck written + Loom recorded for sales.</p>
+      `},
+      { id: 'rn-3', x: 1000, y: 1060, w: 480, h: 280, color: 6, html: `
+        <h3>③ ROLL OUT TO ALL PPSA CLIENTS</h3>
+        <p class="mono">Wk 3 · May 27 - Jun 2</p>
+        <p><strong>Wave deployment after test clients prove it.</strong></p>
+        <ul>
+          <li>Wave 1 (proven): test clients</li>
+          <li>Wave 2: 2 more PPSA clients</li>
+          <li>Wave 3: remaining 2 PPSA clients</li>
+          <li>Track per-client uplift</li>
+          <li>If any client doesn't see lift in 7 days → diagnose with Constraint Troubleshooting Master</li>
+        </ul>
+        <p>By June 2: all 6 PPSA clients on new strategy + call center.</p>
+      `},
+
+      // ===== 3-VEHICLE PYRAMID =====
+      { id: 'vehicles-title', x: 0, y: 1420, w: 900, h: 100, html: `
+        <h2>🏛️ CAM'S 3-VEHICLE PYRAMID</h2>
+        <p>You're on Layer 1. Build it right. Cashcow. Graduate.</p>
+      `},
+      { id: 'v3', x: 200, y: 1560, w: 500, h: 150, color: 4, html: `
         <h3>Layer 3 · Mass-Market High-Ticket</h3>
         <p><strong>$3-5M/mo target</strong></p>
-        <p>Fractional AI Department offer · $10-50K front-end + $2-5K/mo retainer · cold-traffic friendly · timing + market + pricing trifecta</p>
+        <p>Fractional AI Department · $10-50K front-end + $2-5K/mo retainer · cold-traffic friendly</p>
       `},
-      { id: 'v2', x: 100, y: 1230, w: 700, h: 170, color: 5, html: `
+      { id: 'v2', x: 100, y: 1750, w: 700, h: 170, color: 5, html: `
         <h3>Layer 2 · Coach the Agencies</h3>
         <p><strong>$100-400k/mo target</strong></p>
-        <p>License & Scale style · sell to agencies you've built · 60-70% new cash · upsell ladder 5K → 20K → 50K · the <strong>Rhom</strong> angle long-term</p>
+        <p>License & Scale style · sell to agencies you've built · the <strong>Rhom</strong> angle</p>
       `},
-      { id: 'v1', x: 0, y: 1440, w: 900, h: 200, color: 6, html: `
+      { id: 'v1', x: 0, y: 1960, w: 900, h: 200, color: 6, html: `
         <h3>🟢 Layer 1 · Service Agency — RAMBITIOUS</h3>
         <p><strong class="gradient-text">$25-100k/mo target · YOU ARE HERE</strong></p>
-        <p>Local lead gen · PPSA + $297 retainer · home services contractors · supplement what you don't have with capital + sweat equity · <strong>cashcow at $100k profit</strong></p>
+        <p>PPSA + $297→$497 retainer · home services contractors · <strong>cashcow at $100k profit</strong> · build the half-software version that scales</p>
       `},
-      { id: 'stages-title', x: 0, y: 1730, w: 600, h: 60, html: `<h2>🪜 6 PINPOINT SCALING STAGES</h2>` },
-      { id: 's1', x: 0, y: 1810, w: 280, h: 180, color: 4, html: `
-        <h3>✓ Stage 1</h3>
-        <p><strong>Skill Stack · $0-10k</strong></p>
-        <p>Solo. Prove the offer. Eat ramen.</p>
-        <p>3 clients max before quality degrades.</p>
+
+      // ===== 8-WEEK SPRINT — DELIVERY → PRICE → HIRE =====
+      { id: 'sprint-title', x: 0, y: 2260, w: 1500, h: 100, html: `
+        <h2>🚀 8-WEEK SPRINT — May 13 → Jul 11</h2>
+        <p>The sequence: Lock delivery (Wk 1-3) → Raise price (Wk 4-5) → Hire CSM (Wk 6-7) → Onboard CSM (Wk 8)</p>
       `},
-      { id: 's2', x: 300, y: 1810, w: 280, h: 200, color: 6, html: `
-        <h3>▶ Stage 2/3</h3>
-        <p><strong>Delegation/Shitshow · $10-40k</strong></p>
-        <p><strong>CURRENT.</strong> Setter hires done. CSM + MB hires NEXT.</p>
-        <p>Documentation + ops &gt; more hires.</p>
-      `, current: true },
-      { id: 's4', x: 600, y: 1810, w: 280, h: 180, html: `
-        <h3>Stage 4</h3>
-        <p><strong>Founder Friction · $40-80k</strong></p>
-        <p>Ops Manager hire. 90-day no-touch rule.</p>
-        <p>Sales Rep replaces founder on intake calls.</p>
-      `},
-      { id: 's5', x: 900, y: 1810, w: 280, h: 180, html: `
-        <h3>Stage 5</h3>
-        <p><strong>Team Lead · $80-150k</strong></p>
-        <p>Middle management. PM, FM, Ops Mgr, Sales Mgr.</p>
-        <p>Founder works on org design, not deals.</p>
-      `},
-      { id: 's6', x: 1200, y: 1810, w: 280, h: 180, html: `
-        <h3>Stage 6</h3>
-        <p><strong>Decentralization · $150k+</strong></p>
-        <p>Pod structure. COO runs day-to-day.</p>
-        <p>Niche pods (not geography).</p>
-      `},
-      { id: 'sprint-title', x: 0, y: 2080, w: 1500, h: 100, html: `
-        <h2>🚀 THE 8-WEEK SPRINT — May 13 → Jul 11</h2>
-        <p>One anchor task per week. ~2 hrs/day deep work. Rest is normal ops.</p>
-      `},
-      { id: 'w1', x: 0, y: 2220, w: 360, h: 460, color: 6, current: true, html: `
+      { id: 'w1', x: 0, y: 2400, w: 360, h: 460, color: 6, current: true, html: `
         <h3>▶ WK 1 · NOW</h3>
-        <p class="mono">May 13-19</p>
-        <h3 style="margin-top: 8px;">Tracker Audit</h3>
-        <p>Phase B — know what's broken in agency-os before touching code.</p>
-        <p><strong>Deliverable:</strong> Tracker-Audit-2026-05-13.md + top 5 P0 fixes shipped</p>
+        <p class="mono">May 13-19 · LOCK DELIVERY</p>
+        <p><strong>Bulletproof Meta strategy — test on 2 clients</strong></p>
         <ul>
-          <li>Tue: walk every page</li>
-          <li>Wed: prioritize P0/P1/P2</li>
-          <li>Thu/Fri: fix top 5 P0s</li>
-          <li>Sat: brain day (3 Cam transcripts)</li>
+          <li>Tue: pick 2 test clients, write hypothesis</li>
+          <li>Wed: deploy new strategy on client 1</li>
+          <li>Thu: deploy on client 2</li>
+          <li>Fri: setter brief — what's new</li>
+          <li>Sat: brain day — write delivery SOP draft</li>
           <li>Sun: weekly retro</li>
         </ul>
+        <p><strong>Out:</strong> 2 clients on new strategy + initial KPIs flowing.</p>
       `},
-      { id: 'w2', x: 380, y: 2220, w: 360, h: 460, html: `
+      { id: 'w2', x: 380, y: 2400, w: 360, h: 460, html: `
         <h3>WK 2</h3>
-        <p class="mono">May 20-26</p>
-        <h3 style="margin-top: 8px;">Platform Sync</h3>
-        <p>Phase C — GHL webhooks + Meta polling for all 6 clients.</p>
-        <p><strong>Deliverable:</strong> GHL events &lt;5s · Meta data &lt;4hr</p>
+        <p class="mono">May 20-26 · CALL CENTER</p>
+        <p><strong>Build call center component + check Wk 1 results</strong></p>
         <ul>
-          <li>Mon: webhook receiver fn</li>
-          <li>Tue: wire Holmes + Reece</li>
-          <li>Wed: wire Airmergency + ExtRec</li>
-          <li>Thu: Meta polling + 90d backfill</li>
-          <li>Fri: wire onboarding clients</li>
-          <li>Sat: brain day (JTM)</li>
+          <li>Mon: check 7-day data on test clients</li>
+          <li>Tue: write inbound call scripts</li>
+          <li>Wed: record setter training Loom</li>
+          <li>Thu: scheduling protocol doc</li>
+          <li>Fri: package deck for $497 tier</li>
+          <li>Sat: brain day — competitor research</li>
           <li>Sun: reset</li>
         </ul>
+        <p><strong>Out:</strong> call center component shippable as a service tier.</p>
       `},
-      { id: 'w3', x: 760, y: 2220, w: 360, h: 460, html: `
+      { id: 'w3', x: 760, y: 2400, w: 360, h: 460, html: `
         <h3>WK 3</h3>
-        <p class="mono">May 27 - Jun 2</p>
-        <h3 style="margin-top: 8px;">Management View</h3>
-        <p>Phase D1 — Monday-board: 1 row/client, Defcon-colored.</p>
-        <p><strong>Deliverable:</strong> Morning starts on dashboard, not Meta</p>
+        <p class="mono">May 27 - Jun 2 · ROLL OUT</p>
+        <p><strong>Wave-deploy new strategy to all PPSA clients</strong></p>
         <ul>
-          <li>Mon: row schema + table</li>
-          <li>Tue: Defcon coloring + 911 alerts</li>
-          <li>Wed: filters + deep links</li>
-          <li>Thu: Speed-to-Lead counter</li>
-          <li>Fri: ship to prod</li>
-          <li>Sat: brain day</li>
+          <li>Mon: wave 2 (clients 3-4)</li>
+          <li>Tue-Wed: monitor + adjust</li>
+          <li>Thu: wave 3 (clients 5-6)</li>
+          <li>Fri: per-client uplift summary</li>
+          <li>Sat: brain day — finalize delivery SOP</li>
           <li>Sun: reset</li>
         </ul>
+        <p><strong>Out:</strong> all 6 PPSA on new strategy + SOP locked.</p>
       `},
-      { id: 'w4', x: 1140, y: 2220, w: 360, h: 460, html: `
+      { id: 'w4', x: 1140, y: 2400, w: 360, h: 460, color: 5, html: `
         <h3>WK 4</h3>
-        <p class="mono">Jun 3-9</p>
-        <h3 style="margin-top: 8px;">Per-Client Detail</h3>
-        <p>Phase D2-D5 — iteration cycle, 4 pillars, action log.</p>
-        <p><strong>Deliverable:</strong> Click client → &lt;2min decisions</p>
+        <p class="mono">Jun 3-9 · PRICE LIFT PREP</p>
+        <p><strong>Pivot: $297 → $497 for new clients</strong></p>
         <ul>
-          <li>Mon: layout + banners</li>
-          <li>Tue: 4-pillar tabs</li>
-          <li>Wed: action log component</li>
-          <li>Thu: quick-action buttons</li>
-          <li>Fri: constraint troubleshooting modal</li>
-          <li>Sat: brain day (Xero rules)</li>
+          <li>Mon: write $497 sales deck</li>
+          <li>Tue: update sales scripts (price objections)</li>
+          <li>Wed: existing 6 clients stay on $297 (grandfathered)</li>
+          <li>Thu: refresh ads + landing for new tier</li>
+          <li>Fri: do 2-3 sales calls at $497 — see reactions</li>
+          <li>Sat: brain day — write CSM job post</li>
           <li>Sun: reset</li>
         </ul>
+        <p><strong>Out:</strong> $497 tier offered to all new prospects.</p>
       `},
-      { id: 'w5', x: 0, y: 2710, w: 360, h: 460, html: `
+      { id: 'w5', x: 0, y: 2900, w: 360, h: 460, color: 5, html: `
         <h3>WK 5</h3>
-        <p class="mono">Jun 10-16</p>
-        <h3 style="margin-top: 8px;">Slack Workspace</h3>
-        <p>Phase E — channels, bots, team off DMs forever.</p>
-        <p><strong>Deliverable:</strong> All ops in Slack</p>
+        <p class="mono">Jun 10-16 · LANDING $497 CLIENT</p>
+        <p><strong>Acquire 1-2 new clients at $497 to validate price</strong></p>
         <ul>
-          <li>Mon: channels setup</li>
-          <li>Tue: bot token + Defcon piping</li>
-          <li>Wed: setter EOD bot</li>
-          <li>Thu: @brain query bot</li>
-          <li>Fri: migrate team off DMs</li>
-          <li>Sat: brain day (CSM job post)</li>
+          <li>Mon: post CSM job (OnlineJobs.ph + LinkedIn)</li>
+          <li>Tue-Thu: outbound + close calls at $497</li>
+          <li>Fri: onboard new client #1 (if landed) at $497</li>
+          <li>Sat: brain day — review applications</li>
+          <li>Sun: weekly retro · halfway point check-in</li>
+        </ul>
+        <p><strong>Out:</strong> ≥1 new client at $497 + CSM applications flowing.</p>
+      `},
+      { id: 'w6', x: 380, y: 2900, w: 360, h: 460, html: `
+        <h3>WK 6</h3>
+        <p class="mono">Jun 17-23 · CSM HIRE FUNNEL</p>
+        <p><strong>Cam's 7-stage hiring funnel — find the right CSM</strong></p>
+        <ul>
+          <li>Mon: review applications, send 50 Loom screeners</li>
+          <li>Tue: filter Loom responses</li>
+          <li>Wed: schedule group interview for Thursday</li>
+          <li>Thu: group interview (10-20 × 60min × 4 rounds)</li>
+          <li>Fri: top 3 → 1:1 deep dives</li>
+          <li>Sat: paid test project ($50-200) assigned</li>
           <li>Sun: reset</li>
         </ul>
+        <p><strong>Out:</strong> top 1-2 CSM candidates with test projects in hand.</p>
       `},
-      { id: 'w6', x: 380, y: 2710, w: 360, h: 460, html: `
-        <h3>WK 6</h3>
-        <p class="mono">Jun 17-23</p>
-        <h3 style="margin-top: 8px;">Daily Auto Loop</h3>
-        <p>Phase F — 8am ranked priority post. Forced cadence.</p>
-        <p><strong>Deliverable:</strong> Wake → Slack → 3 actions</p>
-        <ul>
-          <li>Mon: 12:01am platform sync</li>
-          <li>Tue: 6am status calc</li>
-          <li>Wed: 8am ranked-priority report</li>
-          <li>Thu: 911 alerts real-time</li>
-          <li>Fri: 6pm EOD aggregator</li>
-          <li>Sat: brain day (post CSM job)</li>
-          <li>Sun: halfway retro</li>
-        </ul>
-      `},
-      { id: 'w7', x: 760, y: 2710, w: 360, h: 460, html: `
+      { id: 'w7', x: 760, y: 2900, w: 360, h: 460, color: 6, html: `
         <h3>WK 7</h3>
-        <p class="mono">Jun 24-30</p>
-        <h3 style="margin-top: 8px;">CSM Hire Funnel</h3>
-        <p>Phase G — Cam's 7-stage funnel + paid test project.</p>
-        <p><strong>Deliverable:</strong> CSM offer extended</p>
+        <p class="mono">Jun 24-30 · CSM CHOSEN</p>
+        <p><strong>Score test projects, extend offer, prep onboarding</strong></p>
         <ul>
-          <li>Mon: review apps, send 50 Looms</li>
-          <li>Tue: filter, schedule group interview</li>
-          <li>Wed: prep group materials</li>
-          <li>Thu: group interview (4 rounds)</li>
-          <li>Fri: top 3 → 1:1 deep dives</li>
-          <li>Sat: paid test project ($50-200)</li>
-          <li>Sun: score, pick CSM</li>
+          <li>Mon-Tue: score test projects</li>
+          <li>Wed: extend offer to chosen CSM</li>
+          <li>Thu: prep Day 1-7 onboarding materials</li>
+          <li>Fri: client context docs (1 per client)</li>
+          <li>Sat: send brain access (Obsidian read perms)</li>
+          <li>Sun: founder mindset prep — letting go</li>
         </ul>
+        <p><strong>Out:</strong> CSM signed, Day 1 = Mon Jul 1.</p>
       `},
-      { id: 'w8', x: 1140, y: 2710, w: 360, h: 460, color: 1, html: `
+      { id: 'w8', x: 1140, y: 2900, w: 360, h: 460, color: 1, html: `
         <h3>🏆 WK 8 · MILESTONE</h3>
-        <p class="mono">Jul 1-7</p>
-        <h3 style="margin-top: 8px;">CSM Onboarding</h3>
-        <p>Day 1-7 boot camp. Founder leaves client comms.</p>
-        <p><strong>Deliverable:</strong> CSM owns ≥4 of 6 clients · 5+ hrs/wk freed</p>
+        <p class="mono">Jul 1-7 · CSM ONBOARDING</p>
+        <p><strong>Day 1-7 boot camp · founder leaves client comms</strong></p>
         <ul>
-          <li>Mon: CSM Day 1 (brain tour)</li>
-          <li>Tue: shadow check-ins</li>
-          <li>Wed: solo check-in (easiest)</li>
-          <li>Thu: CSM owns Defcon-3 (80%)</li>
-          <li>Fri: weekly template written</li>
-          <li>Sat: brain day</li>
-          <li>Sun: <strong>60-day retro</strong></li>
+          <li>Mon: CSM Day 1 — brain tour, dashboard walk</li>
+          <li>Tue: shadow check-ins (3 clients)</li>
+          <li>Wed: solo check-in on easiest client</li>
+          <li>Thu: CSM owns Defcon-3 clients (the 80%)</li>
+          <li>Fri: CSM writes own weekly template</li>
+          <li>Sat: brain day · founder time savings begin</li>
+          <li>Sun: <strong>60-DAY RETRO</strong></li>
         </ul>
+        <p><strong>Out:</strong> CSM owns ≥5 of 9 clients. Founder freed ~15 hrs/wk.</p>
       `},
-      { id: 'rhythm-title', x: 0, y: 3200, w: 600, h: 60, html: `<h2>⏰ DAILY RHYTHM — every weekday</h2>` },
-      { id: 'rhythm', x: 0, y: 3280, w: 900, h: 540, html: `
+
+      // ===== ROLES SECTION — what each hire actually does =====
+      { id: 'roles-title', x: 0, y: 3460, w: 1500, h: 100, html: `
+        <h2>👥 ROLES — what each hire actually does</h2>
+        <p>Stop wondering "what does a CSM do?" — here are role specs with concrete weekly tasks + KPIs + when to hire.</p>
+      `},
+      { id: 'role-csm', x: 0, y: 3600, w: 480, h: 500, color: 6, html: `
+        <h3>🔷 CSM — Client Success Manager</h3>
+        <p class="mono">HIRE AT: $20-22k consistent · YOUR FIRST POST-SETTER HIRE</p>
+        <p><strong>Daily work:</strong></p>
+        <ul>
+          <li>Mon: review weekend leads + appts per client (30min)</li>
+          <li>Tue-Thu: 1-2 client Loom check-ins/day (15min each)</li>
+          <li>Wed: monthly call with 1-2 clients (rotating)</li>
+          <li>Fri: write weekly client recap Looms</li>
+          <li>Daily: Defcon monitor → flag yellows to founder</li>
+        </ul>
+        <p><strong>Owns:</strong> weekly check-ins · monthly calls · Defcon escalations · expectation-gap conversations · renewals · new client Day 0-30 onboarding</p>
+        <p><strong>KPIs:</strong> 80% clients at Defcon 3 · renewal rate 80%+ · NPS 40+</p>
+        <p><strong>Pay range:</strong> $1,500-3,000/mo (OnlineJobs.ph or similar)</p>
+      `},
+      { id: 'role-mb', x: 500, y: 3600, w: 480, h: 500, color: 5, html: `
+        <h3>🔷 Junior Media Buyer</h3>
+        <p class="mono">HIRE AT: $25-28k consistent (after CSM)</p>
+        <p><strong>Daily work:</strong></p>
+        <ul>
+          <li>9am: Meta dashboard review across all 9 clients (60min)</li>
+          <li>Flag: CPL spikes, frequency creep, fatigue signals</li>
+          <li>Daily: refresh 1-2 creatives across portfolio</li>
+          <li>Weekly: lead form A/B per client</li>
+          <li>Per cycle: log iteration with hypothesis</li>
+        </ul>
+        <p><strong>Owns:</strong> campaign builds · daily creative refreshes · lead form iterations · ad spend allocation · iteration cycle logging</p>
+        <p><strong>KPIs:</strong> portfolio median CPL ≤$15 · 2-3 iteration cycles closed/client/month · response time on Defcon 1 &lt; 4 hrs</p>
+        <p><strong>Pay range:</strong> $2,000-4,000/mo</p>
+      `},
+      { id: 'role-closer', x: 1000, y: 3600, w: 480, h: 500, color: 2, html: `
+        <h3>🔷 Closer (Sales Rep)</h3>
+        <p class="mono">HIRE AT: founder doing &gt;5 intake calls/wk consistently</p>
+        <p><strong>Daily work:</strong></p>
+        <ul>
+          <li>Takes intake calls (the 1st sales call from setters)</li>
+          <li>Demos + price negotiations</li>
+          <li>Contract close + first invoice</li>
+          <li>Handoff to CSM after Day 0</li>
+        </ul>
+        <p><strong>Owns:</strong> intake calls · demos · contract close · price objection handling · CRM updates · first invoice</p>
+        <p><strong>KPIs:</strong> close rate 25-35% · avg deal size at full price · time-to-close &lt;7 days</p>
+        <p><strong>Pay model:</strong> base ($1,500-2,500) + commission (10-15% of first month)</p>
+        <p><strong>Why hire:</strong> frees founder for strategy + key-account work only.</p>
+      `},
+      { id: 'role-conf', x: 0, y: 4140, w: 480, h: 400, color: 3, html: `
+        <h3>🔷 Confirmation Specialist</h3>
+        <p class="mono">HIRE AT: setter &gt;150 dials/day OR show rate &lt;70%</p>
+        <p><strong>What they do:</strong></p>
+        <ul>
+          <li>Pre-appointment confirms (24h before, 1h before)</li>
+          <li>Reschedules + no-show recovery</li>
+          <li>Handles inbound from "I might be running late"</li>
+        </ul>
+        <p><strong>Why split from setters:</strong> setters stay on dials. Dedicated confirmer lifts show rate ~10pp.</p>
+        <p><strong>KPI:</strong> show rate +10pp post-hire</p>
+        <p><strong>Pay range:</strong> $1,000-1,500/mo</p>
+      `},
+      { id: 'role-pm', x: 500, y: 4140, w: 480, h: 400, color: 4, html: `
+        <h3>🔷 PM / Ops Manager</h3>
+        <p class="mono">HIRE AT: $35-40k MRR consistent</p>
+        <p><strong>What they own:</strong></p>
+        <ul>
+          <li>Setter scheduling + performance reviews</li>
+          <li>SOP library — write + update everything that happens 2-3x</li>
+          <li>New hire onboarding (ramp-up time &lt;30 days)</li>
+          <li>Cross-client delivery cadence (every PPSA client gets same standard)</li>
+        </ul>
+        <p><strong>KPIs:</strong> new hire ramp &lt;30d · speed-to-lead 95%+ &lt;5min · SOP coverage on all recurring tasks</p>
+        <p><strong>Critical rule:</strong> founder banned from ops for 90 days post-hire (Cam pattern #4).</p>
+        <p><strong>Pay range:</strong> $3,000-5,000/mo</p>
+      `},
+      { id: 'role-setter4', x: 1000, y: 4140, w: 480, h: 400, color: 5, html: `
+        <h3>🔷 Setter #4</h3>
+        <p class="mono">HIRE AT: avg setter handling 5+ clients OR &gt;120 dials/day</p>
+        <p><strong>Setter capacity math:</strong></p>
+        <ul>
+          <li>1 setter handles ~5 clients comfortably</li>
+          <li>3 setters × 5 = 15 client ceiling on setters alone</li>
+          <li>At 9 clients now / 3 setters = 3 clients each (room)</li>
+          <li>Adding 5 more clients → still fine</li>
+          <li>At 15-18 clients → hire 4th setter</li>
+        </ul>
+        <p><strong>So you don't need a 4th setter yet.</strong> Focus on the CSM hire instead.</p>
+      `},
+
+      // ===== 6 STAGES =====
+      { id: 'stages-title', x: 0, y: 4620, w: 600, h: 60, html: `<h2>🪜 6 PINPOINT SCALING STAGES</h2>` },
+      { id: 's1', x: 0, y: 4700, w: 280, h: 180, color: 4, html: `
+        <h3>✓ Stage 1</h3>
+        <p><strong>Skill Stack · $0-10k</strong></p>
+        <p>Solo. Prove the offer. 3 clients max.</p>
+      `},
+      { id: 's2', x: 300, y: 4700, w: 280, h: 180, color: 4, html: `
+        <h3>✓ Stage 2</h3>
+        <p><strong>Delegation · $10-20k</strong></p>
+        <p>Setters hired. Setter ops dialing in.</p>
+      `},
+      { id: 's3', x: 600, y: 4700, w: 280, h: 200, color: 6, html: `
+        <h3>▶ Stage 3 · YOU</h3>
+        <p><strong>Scaling Shitshow · $20-40k</strong></p>
+        <p><strong>CURRENT.</strong> CSM + MB hires next. Documentation &gt; more hires.</p>
+      `, current: true },
+      { id: 's4', x: 900, y: 4700, w: 280, h: 180, html: `
+        <h3>Stage 4</h3>
+        <p><strong>Founder Friction · $40-80k</strong></p>
+        <p>Ops Manager + Closer. 90-day no-touch.</p>
+      `},
+      { id: 's5', x: 1200, y: 4700, w: 280, h: 180, html: `
+        <h3>Stage 5</h3>
+        <p><strong>Team Lead · $80-150k</strong></p>
+        <p>PM, FM. Middle management.</p>
+      `},
+
+      // ===== PRICE LIFT PATH =====
+      { id: 'price-title', x: 0, y: 4980, w: 600, h: 60, html: `<h2>💰 PRICE LIFT — $297 → $497</h2>` },
+      { id: 'price-1', x: 0, y: 5060, w: 480, h: 360, color: 5, html: `
+        <h3>The PATH</h3>
+        <ol>
+          <li><strong>Wk 1-3:</strong> Lock delivery + build call center</li>
+          <li><strong>Wk 4:</strong> Quietly raise to $497 for NEW prospects only</li>
+          <li><strong>Wk 5-7:</strong> Land 1-3 new clients at $497 (validate)</li>
+          <li><strong>Q3:</strong> Offer existing 6 PPSA clients optional upgrade (call center tier included) at 6-month renewal</li>
+          <li><strong>Q4:</strong> All new clients $497. Some existing on $497.</li>
+          <li><strong>2027:</strong> Standard rate $497-697 with tiers</li>
+        </ol>
+      `},
+      { id: 'price-2', x: 500, y: 5060, w: 480, h: 360, html: `
+        <h3>Existing 6 PPSA — KEEP at $297</h3>
+        <p><strong>Don't touch the existing 6 PPSA clients' price yet.</strong></p>
+        <ul>
+          <li>They're loyal. They've absorbed your learning curve.</li>
+          <li>Raising existing prices = churn risk before CSM is hired</li>
+          <li>Strategy: grandfather them at $297 indefinitely OR offer voluntary upgrade tier with call center later</li>
+          <li>At renewal: offer "stay at $297 with current service" OR "upgrade to $497 with call center + monthly strategy call"</li>
+        </ul>
+        <p>Most will upgrade once they see value. Some won't. Both are fine.</p>
+      `},
+      { id: 'price-3', x: 1000, y: 5060, w: 480, h: 360, color: 4, html: `
+        <h3>$497 Value Justification</h3>
+        <p><strong>What you tell the new prospect:</strong></p>
+        <ul>
+          <li>$297 base PPSA fee (booked appts)</li>
+          <li>$200 monthly Call Center premium — your leads get called, qualified, scheduled BEFORE they hit you</li>
+          <li>Standard agencies just send raw leads. You get pre-qualified bookings.</li>
+          <li>Total $497/mo = costs less than ONE deal you'd close on the phone yourself</li>
+        </ul>
+        <p>This frames it as "less than your own time" — same logic as why they hire you in the first place.</p>
+      `},
+
+      // ===== HALF-SOFTWARE VISION =====
+      { id: 'hs-title', x: 0, y: 5500, w: 900, h: 60, html: `<h2>🤖 HALF-SOFTWARE VISION — "They sell themselves"</h2>` },
+      { id: 'hs-1', x: 0, y: 5580, w: 480, h: 320, color: 6, html: `
+        <h3>The 2027 endgame</h3>
+        <p>Clients log into a branded dashboard and see:</p>
+        <ul>
+          <li>Live appt count this week + this month</li>
+          <li>Each lead with status (called / booked / showed / closed)</li>
+          <li>Their personal ROI calculation</li>
+          <li>Notes from your CSM (Loom links, action items)</li>
+          <li>Self-serve "report a problem" → ticket → CSM responds</li>
+        </ul>
+        <p><strong>Result:</strong> client confidence + low support volume + scalability per CSM</p>
+      `},
+      { id: 'hs-2', x: 500, y: 5580, w: 480, h: 320, html: `
+        <h3>What it builds toward</h3>
+        <p>At Stage 4-5 you can either:</p>
+        <ul>
+          <li><strong>Cashcow:</strong> $100k profit/mo, founder &lt;10 hrs, exit-optional</li>
+          <li><strong>Productize externally:</strong> turn this dashboard into Rhom (Layer 2 of pyramid). Sell to other agencies.</li>
+          <li><strong>Pod up:</strong> niche pods (HVAC pod, Decks pod, etc.) — each pod = mini-agency</li>
+        </ul>
+        <p>Building the dashboard NOW pays off in all 3 futures.</p>
+      `},
+
+      // ===== HIRING ORDER (visual) =====
+      { id: 'hiring-title', x: 1700, y: 2260, w: 400, h: 100, html: `
+        <h2>👥 HIRING ORDER</h2>
+        <p>Hire AHEAD of ceiling. Not after.</p>
+      `},
+      { id: 'h-csm', x: 1700, y: 2400, w: 400, h: 200, color: 6, html: `
+        <h3>1️⃣ CSM · July 2026</h3>
+        <p class="mono">$20-22k consistent</p>
+        <p>FIRST. Owns client comms. Frees 60% of weekly hours.</p>
+      `},
+      { id: 'h-mb', x: 1700, y: 2620, w: 400, h: 180, color: 5, html: `
+        <h3>2️⃣ Junior MB · Aug-Sep</h3>
+        <p class="mono">$25-28k MRR</p>
+        <p>Daily Meta reviews, creative refreshes, lead forms.</p>
+      `},
+      { id: 'h-conf', x: 1700, y: 2820, w: 400, h: 180, color: 3, html: `
+        <h3>3️⃣ Confirmer · Sep-Oct</h3>
+        <p class="mono">setter &gt;150 dials/day OR shows &lt;70%</p>
+        <p>+10pp show rate when split from setter.</p>
+      `},
+      { id: 'h-closer', x: 1700, y: 3020, w: 400, h: 200, color: 2, html: `
+        <h3>4️⃣ Closer · Q4 2026</h3>
+        <p class="mono">founder &gt;5 intake calls/wk</p>
+        <p>Replaces founder on sales calls. Close 25-35%.</p>
+      `},
+      { id: 'h-ops', x: 1700, y: 3240, w: 400, h: 200, color: 4, html: `
+        <h3>5️⃣ Ops Mgr/PM · Q1 2027</h3>
+        <p class="mono">$35-40k consistent</p>
+        <p>Owns setters + SOPs + new hire onboarding. Founder banned 90d.</p>
+      `},
+
+      // ===== DAILY RHYTHM =====
+      { id: 'rhythm-title', x: 0, y: 6000, w: 600, h: 60, html: `<h2>⏰ DAILY RHYTHM</h2>` },
+      { id: 'rhythm', x: 0, y: 6080, w: 900, h: 540, html: `
         <p><strong>06:30</strong> Wake</p>
-        <p><strong>07:00</strong> Open Slack #daily-fulfillment (after Wk 6) — ranked priorities</p>
-        <p><strong>07:15</strong> Coffee + 15min "fix the top 1" action</p>
+        <p><strong>07:00</strong> Open Slack #daily-fulfillment (after CSM live) — ranked priorities</p>
+        <p><strong>07:15</strong> Coffee + 15min top-priority action</p>
         <p><strong>07:30</strong> Personal — gym / commute</p>
-        <p><strong class="gradient-text">★ 09:00</strong> <strong class="gradient-text">★ ANCHOR TASK (≤2hr deep work · this week's deliverable)</strong></p>
+        <p><strong class="gradient-text">★ 09:00</strong> <strong class="gradient-text">★ ANCHOR TASK (this week's deliverable · ≤2hr deep work)</strong></p>
         <p><strong>11:00</strong> Sales calls / inbound prospect comms</p>
         <p><strong>12:30</strong> Lunch + setter check-ins (5min each)</p>
-        <p><strong>13:30</strong> Client calls (Defcon 2/1 only after CSM)</p>
-        <p><strong>15:00</strong> Ad ops — Meta per client</p>
+        <p><strong>13:30</strong> Client calls (Defcon 2/1 only — after CSM owns 3s)</p>
+        <p><strong>15:00</strong> Ad ops — Meta per client (after MB hire: review their work instead)</p>
         <p><strong>17:00</strong> Outbound / content / brain reading</p>
-        <p><strong>18:00</strong> Setter EOD review</p>
+        <p><strong>18:00</strong> Setter EOD review (after Slack bot: bot does this)</p>
         <p style="color: #34d399;"><strong>19:00 — OFF — family, gym, no Slack</strong></p>
-        <p style="margin-top: 12px;"><strong>SAT · brain day</strong> — 1 anchor task: read Cam, write SOPs, hire pipeline</p>
+        <p style="margin-top: 12px;"><strong>SAT · brain day</strong> — 1 anchor task: read 3 Cam transcripts, write SOPs, hire pipeline</p>
         <p><strong>SUN · reset</strong> — weekly retro, plan next week, OFF after noon</p>
       `},
-      { id: 'hiring-title', x: 1700, y: 2080, w: 400, h: 100, html: `
-        <h2>👥 HIRING TRIGGERS</h2>
-        <p>Hire AHEAD of ceiling (80%), not after.</p>
+
+      // ===== DO NOT =====
+      { id: 'donot-title', x: 0, y: 6680, w: 900, h: 60, html: `<h2>🚫 DO NOT (Cam's anti-patterns)</h2>` },
+      { id: 'dn1', x: 0, y: 6760, w: 360, h: 200, color: 1, html: `
+        <h3>❌ Don't scale broken delivery</h3>
+        <p>Bulletproof the Meta strategy FIRST. Adding 3 clients to a process that doesn't work = 3 churned clients.</p>
       `},
-      { id: 'h-csm', x: 1700, y: 2220, w: 400, h: 200, color: 6, html: `
-        <h3>▶ CSM</h3>
-        <p class="mono">Wk 7-8 · July 2026</p>
-        <p><strong>Trigger:</strong> $20-22k consistent</p>
-        <p>First post-setter hire. Cam pattern #3: doer, not 'Director of Operations.' Owns client comms. Frees 60% of weekly hours.</p>
+      { id: 'dn2', x: 380, y: 6760, w: 360, h: 200, color: 1, html: `
+        <h3>❌ Don't hire CSM before $20k MRR</h3>
+        <p>You can't afford the right CSM yet. Get to $25-30k/mo first, then hire from a position of strength.</p>
       `},
-      { id: 'h-mb', x: 1700, y: 2440, w: 400, h: 180, color: 5, html: `
-        <h3>Junior Media Buyer</h3>
-        <p class="mono">Aug-Sep 2026</p>
-        <p><strong>Trigger:</strong> $25-28k consistent</p>
-        <p>Campaign builds, creative refreshes, lead form iterations. Daily Meta reviews.</p>
+      { id: 'dn3', x: 760, y: 6760, w: 360, h: 200, color: 1, html: `
+        <h3>❌ Don't raise existing client prices yet</h3>
+        <p>Existing 6 PPSA stay at $297. New prospects get $497. Churn is the bigger risk pre-CSM.</p>
       `},
-      { id: 'h-conf', x: 1700, y: 2640, w: 400, h: 180, color: 2, html: `
-        <h3>Confirmation Specialist</h3>
-        <p class="mono">Sep-Oct 2026</p>
-        <p><strong>Trigger:</strong> setter &gt;150 dials/day OR shows &lt;70%</p>
-        <p>Per Cam pattern #7. Setters stay on dials, dedicated confirmer lifts shows ~10pp.</p>
+      { id: 'dn4', x: 1140, y: 6760, w: 360, h: 200, color: 1, html: `
+        <h3>❌ Don't hire a "manager" as your first CSM</h3>
+        <p>First post-setter hire = doer (does client comms), not "Director of Operations." Cam pattern #3.</p>
       `},
-      { id: 'h-ops', x: 1700, y: 2840, w: 400, h: 200, color: 3, html: `
-        <h3>Ops Manager</h3>
-        <p class="mono">Q1 2027</p>
-        <p><strong>Trigger:</strong> $35-40k consistent</p>
-        <p>Stage 3 → 4 bridge. Owns setters + confirmers + VAs. <strong>Founder BANNED from ops for 90 days</strong> (Cam pattern #4). Pain is the teacher.</p>
+      { id: 'dn5', x: 0, y: 6980, w: 360, h: 200, color: 1, html: `
+        <h3>❌ Don't add 4th setter yet</h3>
+        <p>9 clients / 3 setters = 3 clients each. Room to grow to ~15 clients before next setter hire.</p>
       `},
-      { id: 'h-sales', x: 1700, y: 3060, w: 400, h: 180, color: 4, html: `
-        <h3>Sales Rep</h3>
-        <p class="mono">Q1 2027</p>
-        <p><strong>Trigger:</strong> Ramiz on intake calls &gt;5/wk</p>
-        <p>Replaces Ramiz on first calls. Close target: 25-35%. Founder for strategy only.</p>
-      `},
-      { id: 'donot-title', x: 0, y: 3880, w: 600, h: 60, html: `<h2>🚫 DO NOT (Cam's anti-patterns)</h2>` },
-      { id: 'dn1', x: 0, y: 3960, w: 360, h: 180, color: 1, html: `
-        <h3>❌ Don't hire a manager when you need a doer</h3>
-        <p>First post-setter hire = CSM (does client comms), NOT 'Director of Operations.'</p>
-      `},
-      { id: 'dn2', x: 380, y: 3960, w: 360, h: 180, color: 1, html: `
-        <h3>❌ Don't skip the Ops Manager hire</h3>
-        <p>'I'll handle ops myself' is how you cap at Stage 3 forever.</p>
-      `},
-      { id: 'dn3', x: 760, y: 3960, w: 360, h: 180, color: 1, html: `
-        <h3>❌ Don't build pods on geography</h3>
-        <p>Niche pods compound expertise. Geo pods don't.</p>
-      `},
-      { id: 'dn4', x: 1140, y: 3960, w: 360, h: 180, color: 1, html: `
-        <h3>❌ Don't promote IC → Team Lead without training</h3>
-        <p>Lose an IC AND fail as a manager. Promote slowly with runway.</p>
-      `},
-      { id: 'dn5', x: 0, y: 4160, w: 360, h: 180, color: 1, html: `
-        <h3>❌ Don't break 90-day no-touch</h3>
-        <p>When Ops Mgr hires, founder is banned from their work for 90 days. Even if 5min. Pain teaches.</p>
-      `},
-      { id: 'dn6', x: 380, y: 4160, w: 360, h: 180, color: 1, html: `
+      { id: 'dn6', x: 380, y: 6980, w: 360, h: 200, color: 1, html: `
         <h3>❌ Don't fix anything without a hypothesis</h3>
-        <p>Every change to a client gets a prediction logged. No exceptions.</p>
+        <p>Every change to a client gets a prediction logged. No exceptions. Especially during Meta strategy test.</p>
       `},
-      { id: 'dn7', x: 760, y: 4160, w: 360, h: 180, color: 1, html: `
-        <h3>❌ Don't troubleshoot during external disruptions</h3>
-        <p>External-Factors-Checklist FIRST. Then constraint troubleshooting.</p>
-      `},
-      { id: 'dn8', x: 1140, y: 4160, w: 360, h: 180, color: 1, html: `
+      { id: 'dn7', x: 760, y: 6980, w: 360, h: 200, color: 1, html: `
         <h3>❌ Don't kill ads before 3-5 day window</h3>
-        <p>Skipping it kills signal. Hard rule from iteration cycle playbook.</p>
+        <p>Skipping the measurement window kills signal. Hard rule from iteration cycle playbook.</p>
       `},
-      { id: 'quotes-title', x: 0, y: 4380, w: 900, h: 60, html: `<h2>💎 ANCHOR QUOTES — re-read when the build hurts</h2>` },
-      { id: 'q1', x: 0, y: 4460, w: 480, h: 180, color: 6, html: `
-        <blockquote>"The agency model is a great beginner model to make 100 grand a month in profit, then let it cash cow and leave it and go into something else."</blockquote>
+      { id: 'dn8', x: 1140, y: 6980, w: 360, h: 200, color: 1, html: `
+        <h3>❌ Don't promote IC → Team Lead without training</h3>
+        <p>Lose an IC AND fail as a manager. Promote slowly with management runway.</p>
+      `},
+
+      // ===== QUOTES =====
+      { id: 'quotes-title', x: 0, y: 7220, w: 900, h: 60, html: `<h2>💎 ANCHOR QUOTES — re-read when the build hurts</h2>` },
+      { id: 'q1', x: 0, y: 7300, w: 480, h: 180, color: 6, html: `
+        <blockquote>"The agency model is a great beginner model to make 100 grand a month in profit, then cash cow it."</blockquote>
         <p class="mono">— Cam · $60M/yr video</p>
       `},
-      { id: 'q2', x: 500, y: 4460, w: 480, h: 180, color: 6, html: `
-        <blockquote>"Hire AHEAD of the ceiling, not after. When you're at 80% of revenue ceiling, the next hire's job post should already be live."</blockquote>
+      { id: 'q2', x: 500, y: 7300, w: 480, h: 180, color: 6, html: `
+        <blockquote>"Hire AHEAD of the ceiling, not after. When at 80% of revenue ceiling, the next hire's job post should already be live."</blockquote>
         <p class="mono">— Cam · Pinpoint Scaling</p>
       `},
-      { id: 'q3', x: 1000, y: 4460, w: 480, h: 180, color: 6, html: `
-        <blockquote>"Quantum growth requires three things: timing, market quality, pricing model. All three. Not two."</blockquote>
-        <p class="mono">— Cam · same video</p>
-      `},
-      { id: 'q4', x: 0, y: 4660, w: 480, h: 180, color: 6, html: `
+      { id: 'q3', x: 1000, y: 7300, w: 480, h: 180, color: 6, html: `
         <blockquote>"First post-setter hire is CSM (a doer of client comms), not 'Director of Operations.'"</blockquote>
         <p class="mono">— Cam · methodology pattern #3</p>
       `},
-      { id: 'q5', x: 500, y: 4660, w: 480, h: 180, color: 6, html: `
+      { id: 'q4', x: 0, y: 7500, w: 480, h: 180, color: 6, html: `
         <blockquote>"Friction is a feature. The worse you make the hiring funnel look, the better the people who survive."</blockquote>
         <p class="mono">— Cam · Talent SOP</p>
       `},
-      { id: 'q6', x: 1000, y: 4660, w: 480, h: 180, color: 6, html: `
-        <blockquote>"If you don't track, you can't change/improve. CFO cadence of 2-4 weeks is too slow."</blockquote>
-        <p class="mono">— Cam · Fire Your CFO</p>
+      { id: 'q5', x: 500, y: 7500, w: 480, h: 180, color: 6, html: `
+        <blockquote>"3-5 day minimum observation before declaring a fix worked or failed. Skipping kills signal."</blockquote>
+        <p class="mono">— Iteration Cycle Playbook</p>
       `},
-      { id: 'stats', x: 2200, y: 0, w: 500, h: 320, color: 4, html: `
-        <h2>📊 VAULT STATS</h2>
-        <p><strong class="gradient-text">28</strong> Cam patterns indexed</p>
-        <p><strong class="gradient-text">183</strong> Cam transcripts</p>
-        <p><strong class="gradient-text">99</strong> JTM transcripts (SMMA sales angle)</p>
-        <p><strong>6</strong> active clients</p>
-        <p><strong>3</strong> setters running B2C</p>
-        <p><strong>$15-22k</strong> MRR estimated</p>
+      { id: 'q6', x: 1000, y: 7500, w: 480, h: 180, color: 6, html: `
+        <blockquote>"Documentation and ops > more hires at Stage 3. SOPs are the fix when everything breaks at once."</blockquote>
+        <p class="mono">— Cam · Stage 3 advice</p>
       `},
-      { id: 'how-to-use', x: 2200, y: 360, w: 500, h: 460, html: `
-        <h2>🗺️ HOW TO USE</h2>
+
+      // ===== STATS =====
+      { id: 'stats', x: 2200, y: 0, w: 500, h: 380, color: 4, html: `
+        <h2>📊 LIVE STATS</h2>
+        <p><strong class="gradient-text">9</strong> active clients (6 PPSA + 3 PPL)</p>
+        <p><strong class="gradient-text">3</strong> setters running B2C</p>
+        <p><strong class="gradient-text">$25-35k</strong> estimated MRR</p>
+        <p><strong>$297</strong> current PPSA retainer</p>
+        <p><strong>$497</strong> target for new clients (post Wk 4)</p>
+        <p><strong>28</strong> Cam patterns indexed</p>
+        <p><strong>183</strong> Cam transcripts in vault</p>
+        <p><strong>99</strong> JTM transcripts in vault</p>
+      `},
+      { id: 'how-to-use', x: 2200, y: 420, w: 500, h: 500, html: `
+        <h2>🗺️ HOW TO USE THIS</h2>
         <p><strong>Pan:</strong> drag the background</p>
-        <p><strong>Zoom:</strong> Ctrl/Cmd + scroll, or zoom controls</p>
+        <p><strong>Zoom:</strong> Ctrl/Cmd + scroll</p>
         <p><strong>Fit:</strong> press F or click ⌂</p>
         <p><strong>Jump:</strong> use top-bar buttons</p>
         <p style="margin-top: 12px;"><strong>Operating cadence:</strong></p>
         <ul>
-          <li><strong>Sunday eve:</strong> open this, mark wins, scan next week's anchor</li>
+          <li><strong>Sunday eve:</strong> mark this week's wins, scan next week's anchor</li>
           <li><strong>Weekday morning:</strong> check today's anchor + rhythm + 1 quote</li>
           <li><strong>Lost:</strong> jump to North Star</li>
           <li><strong>Build hurts:</strong> re-read anchor quotes</li>
         </ul>
+        <p style="margin-top: 12px;">Bookmark this URL. This is your daily check-in spot.</p>
       `},
     ];
 
     const EDGES = [
       { from: 'hero', to: 'ns-title', label: 'leads to' },
       { from: 'hero', to: 'today-title' },
-      { from: 'today-title', to: 'vehicles-title' },
-      { from: 'vehicles-title', to: 'stages-title' },
-      { from: 'v1', to: 's2', label: 'you are here' },
-      { from: 's2', to: 'sprint-title', label: 'execute via' },
+      { from: 'today-title', to: 'right-now', label: 'priority' },
+      { from: 'rn-1', to: 'rn-2' },
+      { from: 'rn-2', to: 'rn-3' },
+      { from: 'rn-3', to: 'sprint-title', label: 'execute via' },
       { from: 'w1', to: 'w2' },
       { from: 'w2', to: 'w3' },
       { from: 'w3', to: 'w4' },
@@ -736,12 +736,14 @@
       { from: 'w8', to: 'h-csm', label: 'CSM hired' },
       { from: 'h-csm', to: 'h-mb' },
       { from: 'h-mb', to: 'h-conf' },
-      { from: 'h-conf', to: 'h-ops' },
-      { from: 'h-ops', to: 'h-sales' },
-      { from: 'h-ops', to: 's4', label: 'unlocks' },
+      { from: 'h-conf', to: 'h-closer' },
+      { from: 'h-closer', to: 'h-ops' },
+      { from: 'role-csm', to: 'role-mb' },
+      { from: 'role-mb', to: 'role-closer' },
+      { from: 'v1', to: 's3', label: 'you are here' },
+      { from: 'price-1', to: 'hs-1', label: 'enables' },
     ];
 
-    // === Pan/Zoom state ===
     let worldX = 0, worldY = 0, scale = 1;
     let isPanning = false;
     let panStartX = 0, panStartY = 0;
@@ -758,7 +760,6 @@
       updateMinimap();
     }
 
-    // === Render cards ===
     const nodeById = {};
     NODES.forEach(n => {
       nodeById[n.id] = n;
@@ -773,66 +774,34 @@
       world.appendChild(card);
     });
 
-    // === Render edges ===
     function renderEdges() {
-      // clear old paths (keep defs)
       Array.from(edgesSvg.querySelectorAll('path.edge, text.edge-label')).forEach(e => e.remove());
-
-      // compute bounding box for SVG sizing
       let maxX = 0, maxY = 0;
-      NODES.forEach(n => {
-        maxX = Math.max(maxX, n.x + n.w);
-        maxY = Math.max(maxY, n.y + n.h);
-      });
+      NODES.forEach(n => { maxX = Math.max(maxX, n.x + n.w); maxY = Math.max(maxY, n.y + n.h); });
       edgesSvg.setAttribute('width', maxX + 200);
       edgesSvg.setAttribute('height', maxY + 200);
-
       EDGES.forEach(e => {
-        const from = nodeById[e.from];
-        const to = nodeById[e.to];
+        const from = nodeById[e.from], to = nodeById[e.to];
         if (!from || !to) return;
-        const fromCx = from.x + from.w / 2;
-        const fromCy = from.y + from.h / 2;
-        const toCx = to.x + to.w / 2;
-        const toCy = to.y + to.h / 2;
-
-        // Determine connection sides
+        const fromCx = from.x + from.w / 2, fromCy = from.y + from.h / 2;
+        const toCx = to.x + to.w / 2, toCy = to.y + to.h / 2;
         let x1, y1, x2, y2;
-        const dx = toCx - fromCx;
-        const dy = toCy - fromCy;
+        const dx = toCx - fromCx, dy = toCy - fromCy;
         if (Math.abs(dx) > Math.abs(dy)) {
-          if (dx > 0) {
-            x1 = from.x + from.w; y1 = fromCy;
-            x2 = to.x; y2 = toCy;
-          } else {
-            x1 = from.x; y1 = fromCy;
-            x2 = to.x + to.w; y2 = toCy;
-          }
+          if (dx > 0) { x1 = from.x + from.w; y1 = fromCy; x2 = to.x; y2 = toCy; }
+          else { x1 = from.x; y1 = fromCy; x2 = to.x + to.w; y2 = toCy; }
         } else {
-          if (dy > 0) {
-            x1 = fromCx; y1 = from.y + from.h;
-            x2 = toCx; y2 = to.y;
-          } else {
-            x1 = fromCx; y1 = from.y;
-            x2 = toCx; y2 = to.y + to.h;
-          }
+          if (dy > 0) { x1 = fromCx; y1 = from.y + from.h; x2 = toCx; y2 = to.y; }
+          else { x1 = fromCx; y1 = from.y; x2 = toCx; y2 = to.y + to.h; }
         }
-
-        // Bezier
-        const midX = (x1 + x2) / 2;
-        const midY = (y1 + y2) / 2;
-        const c1x = x1 + (x2 - x1) * 0.5;
-        const c1y = y1;
-        const c2x = x2 - (x2 - x1) * 0.5;
-        const c2y = y2;
-
+        const c1x = x1 + (x2 - x1) * 0.5, c1y = y1, c2x = x2 - (x2 - x1) * 0.5, c2y = y2;
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         path.setAttribute('class', 'edge');
         path.setAttribute('d', `M ${x1} ${y1} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${x2} ${y2}`);
         path.setAttribute('marker-end', 'url(#arrow)');
         edgesSvg.appendChild(path);
-
         if (e.label) {
+          const midX = (x1 + x2) / 2, midY = (y1 + y2) / 2;
           const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
           text.setAttribute('class', 'edge-label');
           text.setAttribute('x', midX);
@@ -845,9 +814,8 @@
     }
     renderEdges();
 
-    // === Pan ===
     viewport.addEventListener('mousedown', (e) => {
-      if (e.target.closest('.card')) return; // don't pan when clicking a card
+      if (e.target.closest('.card')) return;
       isPanning = true;
       viewport.classList.add('dragging');
       panStartX = e.clientX - worldX;
@@ -859,13 +827,9 @@
       worldY = e.clientY - panStartY;
       applyTransform();
     });
-    window.addEventListener('mouseup', () => {
-      isPanning = false;
-      viewport.classList.remove('dragging');
-    });
+    window.addEventListener('mouseup', () => { isPanning = false; viewport.classList.remove('dragging'); });
 
-    // === Touch ===
-    let touchStartDist = 0, touchStartScale = 1, touchStartX = 0, touchStartY = 0;
+    let touchStartDist = 0, touchStartScale = 1;
     viewport.addEventListener('touchstart', (e) => {
       if (e.touches.length === 1) {
         if (e.target.closest('.card')) return;
@@ -877,8 +841,6 @@
         const dy = e.touches[0].clientY - e.touches[1].clientY;
         touchStartDist = Math.sqrt(dx*dx + dy*dy);
         touchStartScale = scale;
-        touchStartX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-        touchStartY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
       }
     }, { passive: true });
     viewport.addEventListener('touchmove', (e) => {
@@ -893,8 +855,7 @@
         const newScale = Math.max(0.1, Math.min(3, touchStartScale * (dist / touchStartDist)));
         const cx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
         const cy = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-        const wx = (cx - worldX) / scale;
-        const wy = (cy - worldY) / scale;
+        const wx = (cx - worldX) / scale, wy = (cy - worldY) / scale;
         scale = newScale;
         worldX = cx - wx * scale;
         worldY = cy - wy * scale;
@@ -904,17 +865,14 @@
     }, { passive: false });
     viewport.addEventListener('touchend', () => { isPanning = false; });
 
-    // === Zoom ===
     viewport.addEventListener('wheel', (e) => {
       e.preventDefault();
       const delta = -e.deltaY * 0.001;
       const factor = Math.exp(delta);
       const newScale = Math.max(0.1, Math.min(3, scale * factor));
       const rect = viewport.getBoundingClientRect();
-      const mx = e.clientX - rect.left;
-      const my = e.clientY - rect.top;
-      const wx = (mx - worldX) / scale;
-      const wy = (my - worldY) / scale;
+      const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+      const wx = (mx - worldX) / scale, wy = (my - worldY) / scale;
       scale = newScale;
       worldX = mx - wx * scale;
       worldY = my - wy * scale;
@@ -923,10 +881,8 @@
 
     function zoomBy(factor) {
       const rect = viewport.getBoundingClientRect();
-      const cx = rect.width / 2;
-      const cy = rect.height / 2;
-      const wx = (cx - worldX) / scale;
-      const wy = (cy - worldY) / scale;
+      const cx = rect.width / 2, cy = rect.height / 2;
+      const wx = (cx - worldX) / scale, wy = (cy - worldY) / scale;
       scale = Math.max(0.1, Math.min(3, scale * factor));
       worldX = cx - wx * scale;
       worldY = cy - wy * scale;
@@ -941,8 +897,7 @@
         maxX = Math.max(maxX, n.x + n.w);
         maxY = Math.max(maxY, n.y + n.h);
       });
-      const contentW = maxX - minX;
-      const contentH = maxY - minY;
+      const contentW = maxX - minX, contentH = maxY - minY;
       const rect = viewport.getBoundingClientRect();
       const padding = 60;
       const sx = (rect.width - padding * 2) / contentW;
@@ -957,13 +912,12 @@
       const n = nodeById[nodeId];
       if (!n) return;
       const rect = viewport.getBoundingClientRect();
-      scale = 0.9;
+      scale = 0.85;
       worldX = rect.width / 2 - (n.x + n.w / 2) * scale;
       worldY = rect.height / 2 - (n.y + n.h / 2) * scale;
       applyTransform();
     }
 
-    // === Minimap ===
     function updateMinimap() {
       let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
       NODES.forEach(n => {
@@ -972,12 +926,9 @@
         maxX = Math.max(maxX, n.x + n.w);
         maxY = Math.max(maxY, n.y + n.h);
       });
-      const cW = maxX - minX;
-      const cH = maxY - minY;
+      const cW = maxX - minX, cH = maxY - minY;
       const mW = 200, mH = 130;
       const ratio = Math.min(mW / cW, mH / cH);
-
-      // render mini-nodes (once)
       if (!minimap.dataset.rendered) {
         NODES.forEach(n => {
           const mn = document.createElement('div');
@@ -993,13 +944,9 @@
         });
         minimap.dataset.rendered = '1';
       }
-
-      // viewport rect
       const vp = viewport.getBoundingClientRect();
-      const visX = (-worldX) / scale;
-      const visY = (-worldY) / scale;
-      const visW = vp.width / scale;
-      const visH = vp.height / scale;
+      const visX = (-worldX) / scale, visY = (-worldY) / scale;
+      const visW = vp.width / scale, visH = vp.height / scale;
       minimapViewport.style.left = ((visX - minX) * ratio) + 'px';
       minimapViewport.style.top = ((visY - minY) * ratio) + 'px';
       minimapViewport.style.width = (visW * ratio) + 'px';
@@ -1008,8 +955,7 @@
 
     minimap.parentElement.addEventListener('click', (e) => {
       const rect = minimap.parentElement.getBoundingClientRect();
-      const mx = e.clientX - rect.left;
-      const my = e.clientY - rect.top;
+      const mx = e.clientX - rect.left, my = e.clientY - rect.top;
       let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
       NODES.forEach(n => {
         minX = Math.min(minX, n.x);
@@ -1019,33 +965,28 @@
       });
       const cW = maxX - minX, cH = maxY - minY;
       const ratio = Math.min(200 / cW, 130 / cH);
-      const tx = (mx / ratio) + minX;
-      const ty = (my / ratio) + minY;
+      const tx = (mx / ratio) + minX, ty = (my / ratio) + minY;
       const vp = viewport.getBoundingClientRect();
       worldX = vp.width / 2 - tx * scale;
       worldY = vp.height / 2 - ty * scale;
       applyTransform();
     });
 
-    // === Keyboard ===
     window.addEventListener('keydown', (e) => {
       if (e.key === 'f' || e.key === 'F') { fitToScreen(); }
       if (e.key === '0') { scale = 1; applyTransform(); }
     });
 
-    // === Welcome modal ===
     function closeWelcome() {
       document.getElementById('welcome').classList.add('hidden');
       setTimeout(fitToScreen, 100);
     }
 
-    // === Day counter ===
     const today = new Date();
     const sprintStart = new Date('2026-05-13T00:00:00');
     const dayNum = Math.max(1, Math.min(60, Math.floor((today - sprintStart) / (1000 * 60 * 60 * 24)) + 1));
     document.getElementById('day-counter').textContent = dayNum;
 
-    // === Init ===
     fitToScreen();
     window.addEventListener('resize', fitToScreen);
   </script>
