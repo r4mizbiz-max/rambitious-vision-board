@@ -101,8 +101,8 @@
     @media (max-width: 768px) { .topbar-meta { display: none; } .minimap { display: none; } }
 
     /* Settings panel */
-    .settings-panel { position: fixed; top: 0; right: -440px; width: 440px; height: 100vh; background: var(--card-bg); border-left: 1px solid var(--line); box-shadow: -8px 0 30px rgba(0,0,0,0.08); z-index: 150; transition: right 0.3s ease; overflow-y: auto; }
-    .settings-panel.open { right: 0; }
+    .settings-panel { position: fixed; top: 0; right: 0; width: 440px; height: 100vh; background: var(--card-bg); border-left: 1px solid var(--line); box-shadow: -8px 0 30px rgba(0,0,0,0.08); z-index: 150; transition: transform 0.3s ease; overflow-y: auto; transform: translateX(100%); pointer-events: none; }
+    .settings-panel.open { transform: translateX(0); pointer-events: auto; }
     .settings-header { padding: 20px 24px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--card-bg); z-index: 10; display: flex; justify-content: space-between; align-items: center; }
     .settings-header h2 { font-family: 'Syne', sans-serif; font-size: 20px; }
     .close-btn { background: transparent; border: none; font-size: 20px; cursor: pointer; padding: 4px 10px; border-radius: 6px; color: var(--text-dim); }
@@ -1721,10 +1721,14 @@
     fitToScreen();
     window.addEventListener('resize', fitToScreen);
 
-    // Init settings panel + first render
-    renderInputs();
-    wireInputs();
-    renderResults();
+    // Init settings panel + first render (wrapped — drag/pan must not break if this throws)
+    try {
+      renderInputs();
+      wireInputs();
+      renderResults();
+    } catch (err) {
+      console.error('[init] settings panel init failed:', err);
+    }
   </script>
 </body>
 </html>
